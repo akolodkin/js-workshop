@@ -1,14 +1,14 @@
-const { Pipeline, compose, when, errorMiddleware } = require('./index');
+const { Pipeline, compose, when, errorMiddleware } = require("./index");
 
-describe('Pipeline', () => {
-  describe('use', () => {
-    test('should add middleware', () => {
+describe("Pipeline", () => {
+  describe("use", () => {
+    test("should add middleware", () => {
       const pipeline = new Pipeline();
       const result = pipeline.use((ctx, next) => next());
       expect(result).toBe(pipeline); // Chainable
     });
 
-    test('should be chainable', () => {
+    test("should be chainable", () => {
       const pipeline = new Pipeline();
       pipeline
         .use((ctx, next) => next())
@@ -18,8 +18,8 @@ describe('Pipeline', () => {
     });
   });
 
-  describe('run', () => {
-    test('should execute middleware in order', async () => {
+  describe("run", () => {
+    test("should execute middleware in order", async () => {
       const order = [];
       const pipeline = new Pipeline();
 
@@ -39,7 +39,7 @@ describe('Pipeline', () => {
       expect(order).toEqual([1, 2, 3, 4]);
     });
 
-    test('should pass context to all middleware', async () => {
+    test("should pass context to all middleware", async () => {
       const pipeline = new Pipeline();
 
       pipeline.use((ctx, next) => {
@@ -57,7 +57,7 @@ describe('Pipeline', () => {
       expect(ctx).toEqual({ a: 1, b: 2 });
     });
 
-    test('should stop chain if next is not called', async () => {
+    test("should stop chain if next is not called", async () => {
       const pipeline = new Pipeline();
       let reached = false;
 
@@ -77,14 +77,14 @@ describe('Pipeline', () => {
       expect(reached).toBe(false);
     });
 
-    test('should handle empty pipeline', async () => {
+    test("should handle empty pipeline", async () => {
       const pipeline = new Pipeline();
       await pipeline.run({}); // Should not throw
     });
   });
 
-  describe('async middleware', () => {
-    test('should handle async middleware', async () => {
+  describe("async middleware", () => {
+    test("should handle async middleware", async () => {
       const pipeline = new Pipeline();
 
       pipeline.use(async (ctx, next) => {
@@ -94,41 +94,41 @@ describe('Pipeline', () => {
       });
 
       pipeline.use(async (ctx, next) => {
-        await new Promise(r => setTimeout(r, 50));
-        ctx.value = 'async';
+        await new Promise((r) => setTimeout(r, 50));
+        ctx.value = "async";
         await next();
       });
 
       const ctx = {};
       await pipeline.run(ctx);
-      expect(ctx.value).toBe('async');
+      expect(ctx.value).toBe("async");
       expect(ctx.duration).toBeGreaterThanOrEqual(40);
     });
 
-    test('should await next properly', async () => {
+    test("should await next properly", async () => {
       const order = [];
       const pipeline = new Pipeline();
 
       pipeline.use(async (ctx, next) => {
-        order.push('a-before');
+        order.push("a-before");
         await next();
-        order.push('a-after');
+        order.push("a-after");
       });
 
       pipeline.use(async (ctx, next) => {
-        order.push('b-before');
-        await new Promise(r => setTimeout(r, 10));
+        order.push("b-before");
+        await new Promise((r) => setTimeout(r, 10));
         await next();
-        order.push('b-after');
+        order.push("b-after");
       });
 
       await pipeline.run({});
-      expect(order).toEqual(['a-before', 'b-before', 'b-after', 'a-after']);
+      expect(order).toEqual(["a-before", "b-before", "b-after", "a-after"]);
     });
   });
 
-  describe('real-world scenario', () => {
-    test('should work like Express/Koa middleware', async () => {
+  describe("real-world scenario", () => {
+    test("should work like Express/Koa middleware", async () => {
       const pipeline = new Pipeline();
       const logs = [];
 
@@ -143,7 +143,7 @@ describe('Pipeline', () => {
       pipeline.use(async (ctx, next) => {
         if (!ctx.token) {
           ctx.status = 401;
-          ctx.body = 'Unauthorized';
+          ctx.body = "Unauthorized";
           return;
         }
         await next();
@@ -152,50 +152,61 @@ describe('Pipeline', () => {
       // Handler
       pipeline.use((ctx, next) => {
         ctx.status = 200;
-        ctx.body = 'Success';
+        ctx.body = "Success";
       });
 
       // Test authorized request
-      const ctx1 = { method: 'GET', path: '/api', token: 'valid' };
+      const ctx1 = { method: "GET", path: "/api", token: "valid" };
       await pipeline.run(ctx1);
       expect(ctx1.status).toBe(200);
-      expect(ctx1.body).toBe('Success');
+      expect(ctx1.body).toBe("Success");
 
       // Test unauthorized request
       logs.length = 0;
-      const ctx2 = { method: 'GET', path: '/api' };
+      const ctx2 = { method: "GET", path: "/api" };
       await pipeline.run(ctx2);
       expect(ctx2.status).toBe(401);
-      expect(ctx2.body).toBe('Unauthorized');
+      expect(ctx2.body).toBe("Unauthorized");
     });
   });
 });
 
-describe('compose', () => {
-  test('should compose middleware array', async () => {
+describe("compose", () => {
+  test("should compose middleware array", async () => {
     const middleware = [
-      (ctx, next) => { ctx.order = (ctx.order || '') + 'a'; return next(); },
-      (ctx, next) => { ctx.order += 'b'; return next(); },
-      (ctx, next) => { ctx.order += 'c'; }
+      (ctx, next) => {
+        ctx.order = (ctx.order || "") + "a";
+        return next();
+      },
+      (ctx, next) => {
+        ctx.order += "b";
+        return next();
+      },
+      (ctx, next) => {
+        ctx.order += "c";
+      },
     ];
 
     const composed = compose(middleware);
     const ctx = {};
     await composed(ctx);
-    expect(ctx.order).toBe('abc');
+    expect(ctx.order).toBe("abc");
   });
 
-  test('should handle empty array', async () => {
+  test("should handle empty array", async () => {
     const composed = compose([]);
     await composed({}); // Should not throw
   });
 });
 
-describe('when', () => {
-  test('should run middleware when condition is true', async () => {
+describe("when", () => {
+  test("should run middleware when condition is true", async () => {
     const middleware = when(
-      ctx => ctx.shouldRun,
-      (ctx, next) => { ctx.ran = true; return next(); }
+      (ctx) => ctx.shouldRun,
+      (ctx, next) => {
+        ctx.ran = true;
+        return next();
+      },
     );
 
     const ctx = { shouldRun: true };
@@ -203,10 +214,13 @@ describe('when', () => {
     expect(ctx.ran).toBe(true);
   });
 
-  test('should skip middleware when condition is false', async () => {
+  test("should skip middleware when condition is false", async () => {
     const middleware = when(
-      ctx => ctx.shouldRun,
-      (ctx, next) => { ctx.ran = true; return next(); }
+      (ctx) => ctx.shouldRun,
+      (ctx, next) => {
+        ctx.ran = true;
+        return next();
+      },
     );
 
     const ctx = { shouldRun: false };
@@ -215,8 +229,8 @@ describe('when', () => {
   });
 });
 
-describe('errorMiddleware', () => {
-  test('should catch errors in downstream middleware', async () => {
+describe("errorMiddleware", () => {
+  test("should catch errors in downstream middleware", async () => {
     let caughtError = null;
     const errorHandler = errorMiddleware((err, ctx) => {
       caughtError = err;
@@ -225,14 +239,14 @@ describe('errorMiddleware', () => {
 
     const ctx = {};
     await errorHandler(ctx, async () => {
-      throw new Error('Test error');
+      throw new Error("Test error");
     });
 
-    expect(caughtError.message).toBe('Test error');
+    expect(caughtError.message).toBe("Test error");
     expect(ctx.error).toBe(true);
   });
 
-  test('should not interfere when no errors', async () => {
+  test("should not interfere when no errors", async () => {
     let caughtError = null;
     const errorHandler = errorMiddleware((err) => {
       caughtError = err;

@@ -64,7 +64,7 @@ class EventEmitter {
 
     // Step 4: Return true
 
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -113,7 +113,7 @@ class EventEmitter {
 
     // Return copy of listeners array, or empty array if none
 
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -124,7 +124,7 @@ class EventEmitter {
   listenerCount(event) {
     // TODO: Implement listenerCount
 
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 }
 

@@ -3,6 +3,7 @@
 ## Difficulty: Hard
 
 ## Learning Objectives
+
 - Understand reactive programming concepts
 - Implement the Observer pattern
 - Work with data streams and subscriptions
@@ -14,11 +15,11 @@ Observables represent data streams over time. Unlike Promises (single value), Ob
 
 ```javascript
 // Promise: one value
-const promise = fetch('/api/data');
+const promise = fetch("/api/data");
 
 // Observable: multiple values over time
-const clicks = new Observable(observer => {
-  document.addEventListener('click', e => observer.next(e));
+const clicks = new Observable((observer) => {
+  document.addEventListener("click", (e) => observer.next(e));
 });
 ```
 
@@ -29,7 +30,7 @@ const clicks = new Observable(observer => {
 Create an `Observable` class that:
 
 ```javascript
-const observable = new Observable(subscriber => {
+const observable = new Observable((subscriber) => {
   subscriber.next(1);
   subscriber.next(2);
   subscriber.next(3);
@@ -40,6 +41,7 @@ const observable = new Observable(subscriber => {
 ### Subscriber Methods
 
 The subscriber object has:
+
 - `next(value)` - Emit a value
 - `error(err)` - Emit an error (stops the stream)
 - `complete()` - Signal completion (stops the stream)
@@ -50,15 +52,16 @@ Subscribe to the observable:
 
 ```javascript
 const subscription = observable.subscribe({
-  next: value => console.log(value),
-  error: err => console.error(err),
-  complete: () => console.log('Done')
+  next: (value) => console.log(value),
+  error: (err) => console.error(err),
+  complete: () => console.log("Done"),
 });
 ```
 
 Or with just a callback:
+
 ```javascript
-observable.subscribe(value => console.log(value));
+observable.subscribe((value) => console.log(value));
 ```
 
 Returns a subscription with `unsubscribe()` method.
@@ -76,7 +79,7 @@ Implement as methods that return new Observables:
 
 ```javascript
 // Basic observable
-const numbers = new Observable(subscriber => {
+const numbers = new Observable((subscriber) => {
   subscriber.next(1);
   subscriber.next(2);
   subscriber.next(3);
@@ -84,13 +87,13 @@ const numbers = new Observable(subscriber => {
 });
 
 numbers.subscribe({
-  next: x => console.log(x),
-  complete: () => console.log('Done')
+  next: (x) => console.log(x),
+  complete: () => console.log("Done"),
 });
 // 1, 2, 3, Done
 
 // Async observable
-const timer = new Observable(subscriber => {
+const timer = new Observable((subscriber) => {
   let count = 0;
   const id = setInterval(() => {
     subscriber.next(count++);
@@ -104,14 +107,14 @@ const timer = new Observable(subscriber => {
   return () => clearInterval(id);
 });
 
-const sub = timer.subscribe(x => console.log(x));
+const sub = timer.subscribe((x) => console.log(x));
 // Later: sub.unsubscribe();
 
 // With operators
 numbers
-  .map(x => x * 2)
-  .filter(x => x > 2)
-  .subscribe(x => console.log(x));
+  .map((x) => x * 2)
+  .filter((x) => x > 2)
+  .subscribe((x) => console.log(x));
 // 4, 6
 ```
 

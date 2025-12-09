@@ -1,14 +1,14 @@
-const { debounce, throttle } = require('./index');
+const { debounce, throttle } = require("./index");
 
 // Helper to advance timers
 jest.useFakeTimers();
 
-describe('debounce', () => {
+describe("debounce", () => {
   beforeEach(() => {
     jest.clearAllTimers();
   });
 
-  test('should delay function execution', () => {
+  test("should delay function execution", () => {
     const fn = jest.fn();
     const debounced = debounce(fn, 100);
 
@@ -19,7 +19,7 @@ describe('debounce', () => {
     expect(fn).toHaveBeenCalledTimes(1);
   });
 
-  test('should reset timer on subsequent calls', () => {
+  test("should reset timer on subsequent calls", () => {
     const fn = jest.fn();
     const debounced = debounce(fn, 100);
 
@@ -33,7 +33,7 @@ describe('debounce', () => {
     expect(fn).toHaveBeenCalledTimes(1);
   });
 
-  test('should only execute once after rapid calls', () => {
+  test("should only execute once after rapid calls", () => {
     const fn = jest.fn();
     const debounced = debounce(fn, 100);
 
@@ -47,30 +47,30 @@ describe('debounce', () => {
     expect(fn).toHaveBeenCalledTimes(1);
   });
 
-  test('should pass arguments to the original function', () => {
+  test("should pass arguments to the original function", () => {
     const fn = jest.fn();
     const debounced = debounce(fn, 100);
 
-    debounced('arg1', 'arg2', 123);
+    debounced("arg1", "arg2", 123);
     jest.advanceTimersByTime(100);
 
-    expect(fn).toHaveBeenCalledWith('arg1', 'arg2', 123);
+    expect(fn).toHaveBeenCalledWith("arg1", "arg2", 123);
   });
 
-  test('should use the latest arguments', () => {
+  test("should use the latest arguments", () => {
     const fn = jest.fn();
     const debounced = debounce(fn, 100);
 
-    debounced('first');
-    debounced('second');
-    debounced('third');
+    debounced("first");
+    debounced("second");
+    debounced("third");
 
     jest.advanceTimersByTime(100);
-    expect(fn).toHaveBeenCalledWith('third');
+    expect(fn).toHaveBeenCalledWith("third");
   });
 
-  test('should preserve this context', () => {
-    const fn = jest.fn(function() {
+  test("should preserve this context", () => {
+    const fn = jest.fn(function () {
       return this.value;
     });
     const debounced = debounce(fn, 100);
@@ -82,7 +82,7 @@ describe('debounce', () => {
     expect(fn.mock.instances[0]).toBe(obj);
   });
 
-  test('should have a cancel method', () => {
+  test("should have a cancel method", () => {
     const fn = jest.fn();
     const debounced = debounce(fn, 100);
 
@@ -93,7 +93,7 @@ describe('debounce', () => {
     expect(fn).not.toHaveBeenCalled();
   });
 
-  test('should allow new calls after cancel', () => {
+  test("should allow new calls after cancel", () => {
     const fn = jest.fn();
     const debounced = debounce(fn, 100);
 
@@ -106,12 +106,12 @@ describe('debounce', () => {
   });
 });
 
-describe('throttle', () => {
+describe("throttle", () => {
   beforeEach(() => {
     jest.clearAllTimers();
   });
 
-  test('should execute immediately on first call', () => {
+  test("should execute immediately on first call", () => {
     const fn = jest.fn();
     const throttled = throttle(fn, 100);
 
@@ -119,7 +119,7 @@ describe('throttle', () => {
     expect(fn).toHaveBeenCalledTimes(1);
   });
 
-  test('should ignore calls within the limit period', () => {
+  test("should ignore calls within the limit period", () => {
     const fn = jest.fn();
     const throttled = throttle(fn, 100);
 
@@ -130,7 +130,7 @@ describe('throttle', () => {
     expect(fn).toHaveBeenCalledTimes(1);
   });
 
-  test('should allow calls after the limit period', () => {
+  test("should allow calls after the limit period", () => {
     const fn = jest.fn();
     const throttled = throttle(fn, 100);
 
@@ -141,7 +141,7 @@ describe('throttle', () => {
     expect(fn).toHaveBeenCalledTimes(2);
   });
 
-  test('should execute at regular intervals during continuous calls', () => {
+  test("should execute at regular intervals during continuous calls", () => {
     const fn = jest.fn();
     const throttled = throttle(fn, 100);
 
@@ -161,16 +161,16 @@ describe('throttle', () => {
     expect(fn).toHaveBeenCalledTimes(3);
   });
 
-  test('should pass arguments to the original function', () => {
+  test("should pass arguments to the original function", () => {
     const fn = jest.fn();
     const throttled = throttle(fn, 100);
 
-    throttled('arg1', 'arg2', 123);
-    expect(fn).toHaveBeenCalledWith('arg1', 'arg2', 123);
+    throttled("arg1", "arg2", 123);
+    expect(fn).toHaveBeenCalledWith("arg1", "arg2", 123);
   });
 
-  test('should preserve this context', () => {
-    const fn = jest.fn(function() {
+  test("should preserve this context", () => {
+    const fn = jest.fn(function () {
       return this.value;
     });
     const throttled = throttle(fn, 100);
@@ -181,7 +181,7 @@ describe('throttle', () => {
     expect(fn.mock.instances[0]).toBe(obj);
   });
 
-  test('should have a cancel method', () => {
+  test("should have a cancel method", () => {
     const fn = jest.fn();
     const throttled = throttle(fn, 100);
 
@@ -193,7 +193,7 @@ describe('throttle', () => {
     expect(fn).toHaveBeenCalledTimes(2);
   });
 
-  test('should reset throttle state on cancel', () => {
+  test("should reset throttle state on cancel", () => {
     const fn = jest.fn();
     const throttled = throttle(fn, 100);
 

@@ -3,6 +3,7 @@
 ## Difficulty: Hard
 
 ## Learning Objectives
+
 - Deep understanding of `this` keyword in JavaScript
 - Learn how Function.prototype methods work internally
 - Work with prototypes and function objects
@@ -13,13 +14,13 @@
 The `bind()` method creates a new function with its `this` value bound to a specific object. Your task is to implement this functionality from scratch.
 
 ```javascript
-const person = { name: 'Alice' };
+const person = { name: "Alice" };
 function greet(greeting) {
   return `${greeting}, ${this.name}!`;
 }
 
 const boundGreet = greet.bind(person);
-boundGreet('Hello'); // "Hello, Alice!"
+boundGreet("Hello"); // "Hello, Alice!"
 ```
 
 ## Requirements
@@ -37,12 +38,16 @@ Implement `customBind(fn, context, ...boundArgs)` that:
 ```javascript
 // Basic binding
 const obj = { x: 42 };
-function getX() { return this.x; }
+function getX() {
+  return this.x;
+}
 const boundGetX = customBind(getX, obj);
 boundGetX(); // 42
 
 // Partial application
-function add(a, b, c) { return a + b + c; }
+function add(a, b, c) {
+  return a + b + c;
+}
 const add5 = customBind(add, null, 5);
 add5(3, 2); // 10 (5 + 3 + 2)
 
@@ -54,7 +59,7 @@ function Person(name) {
   this.name = name;
 }
 const BoundPerson = customBind(Person, { ignored: true });
-const alice = new BoundPerson('Alice');
+const alice = new BoundPerson("Alice");
 alice.name; // 'Alice'
 alice instanceof Person; // true
 ```
@@ -64,11 +69,11 @@ alice instanceof Person; // true
 Optionally, add `customBind` to `Function.prototype`:
 
 ```javascript
-Function.prototype.customBind = function(context, ...boundArgs) {
+Function.prototype.customBind = function (context, ...boundArgs) {
   // Your implementation
 };
 
-const bound = greet.customBind(person, 'Hello');
+const bound = greet.customBind(person, "Hello");
 ```
 
 ## Hints

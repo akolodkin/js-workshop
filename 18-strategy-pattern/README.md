@@ -3,6 +3,7 @@
 ## Difficulty: Medium
 
 ## Learning Objectives
+
 - Understand the Strategy behavioral pattern
 - Implement interchangeable algorithms
 - Use composition over inheritance
@@ -15,11 +16,11 @@ The Strategy pattern allows selecting algorithms at runtime. Instead of hard-cod
 ```javascript
 // Without strategy: rigid if/else
 function calculatePrice(items, discountType) {
-  if (discountType === 'percentage') {
+  if (discountType === "percentage") {
     // ... percentage logic
-  } else if (discountType === 'fixed') {
+  } else if (discountType === "fixed") {
     // ... fixed logic
-  } else if (discountType === 'bulk') {
+  } else if (discountType === "bulk") {
     // ... bulk logic
   }
 }
@@ -40,7 +41,9 @@ Each strategy should have a method that performs the algorithm:
 
 ```javascript
 class Strategy {
-  execute(data) { /* implementation */ }
+  execute(data) {
+    /* implementation */
+  }
 }
 ```
 
@@ -109,8 +112,8 @@ sorter.sort([5, 2, 8]); // [2, 5, 8]
 // Pricing
 const pricing = new PricingContext(new RegularPricing());
 const items = [
-  { name: 'Shirt', price: 50 },
-  { name: 'Pants', price: 80 }
+  { name: "Shirt", price: 50 },
+  { name: "Pants", price: 80 },
 ];
 
 pricing.calculateTotal(items); // 130

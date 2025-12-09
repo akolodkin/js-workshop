@@ -26,7 +26,7 @@ function withLogging(fn) {
   // Note: Preserve 'this' context using apply/call
 
   // Broken: throws error
-  throw new Error('Not implemented');
+  throw new Error("Not implemented");
 }
 
 /**
@@ -159,7 +159,9 @@ function compose(...decorators) {
 
   // Example: compose(a, b, c)(fn) = a(b(c(fn)))
 
-  return (fn) => { throw new Error('Not implemented'); };
+  return (fn) => {
+    throw new Error("Not implemented");
+  };
 }
 
 /**
@@ -175,7 +177,9 @@ function pipe(...decorators) {
 
   // Same as compose but left-to-right
 
-  return (fn) => { throw new Error('Not implemented'); };
+  return (fn) => {
+    throw new Error("Not implemented");
+  };
 }
 
 // Storage for logs (used in tests)
@@ -205,5 +209,5 @@ module.exports = {
   pipe,
   log,
   clearLogs,
-  getLogs
+  getLogs,
 };

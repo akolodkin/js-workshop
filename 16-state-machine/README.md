@@ -3,6 +3,7 @@
 ## Difficulty: Hard
 
 ## Learning Objectives
+
 - Understand finite state machines (FSM)
 - Implement state transitions with guards
 - Handle complex state-dependent logic
@@ -14,15 +15,15 @@ A state machine manages states and transitions. Instead of scattered if/else che
 
 ```javascript
 // Without state machine: scattered checks
-if (order.status === 'pending' && payment.received) {
-  order.status = 'paid';
-} else if (order.status === 'paid' && items.shipped) {
-  order.status = 'shipped';
+if (order.status === "pending" && payment.received) {
+  order.status = "paid";
+} else if (order.status === "paid" && items.shipped) {
+  order.status = "shipped";
 }
 
 // With state machine: clear transitions
-orderMachine.transition('PAY');    // pending → paid
-orderMachine.transition('SHIP');   // paid → shipped
+orderMachine.transition("PAY"); // pending → paid
+orderMachine.transition("SHIP"); // paid → shipped
 ```
 
 ## Requirements
@@ -33,33 +34,35 @@ Create a `StateMachine` class:
 
 ```javascript
 const machine = new StateMachine({
-  initial: 'idle',
+  initial: "idle",
   states: {
     idle: {
       on: {
-        START: 'running'
-      }
+        START: "running",
+      },
     },
     running: {
       on: {
-        PAUSE: 'paused',
-        STOP: 'idle'
-      }
+        PAUSE: "paused",
+        STOP: "idle",
+      },
     },
     paused: {
       on: {
-        RESUME: 'running',
-        STOP: 'idle'
-      }
-    }
-  }
+        RESUME: "running",
+        STOP: "idle",
+      },
+    },
+  },
 });
 ```
 
 #### Properties
+
 - `state` - Current state name
 
 #### Methods
+
 - `transition(event)` - Attempt state transition
 - `can(event)` - Check if transition is allowed
 - `getAvailableTransitions()` - Get valid events for current state
@@ -67,6 +70,7 @@ const machine = new StateMachine({
 ### Advanced Features
 
 1. **Guards**: Conditions for transitions
+
 ```javascript
 states: {
   cart: {
@@ -81,6 +85,7 @@ states: {
 ```
 
 2. **Actions**: Side effects on transition
+
 ```javascript
 on: {
   SUBMIT: {
@@ -91,6 +96,7 @@ on: {
 ```
 
 3. **Context**: Data that travels with machine
+
 ```javascript
 const machine = new StateMachine({
   initial: 'idle',
@@ -104,48 +110,50 @@ const machine = new StateMachine({
 ```javascript
 // Traffic light
 const trafficLight = new StateMachine({
-  initial: 'red',
+  initial: "red",
   states: {
-    red: { on: { TIMER: 'green' } },
-    green: { on: { TIMER: 'yellow' } },
-    yellow: { on: { TIMER: 'red' } }
-  }
+    red: { on: { TIMER: "green" } },
+    green: { on: { TIMER: "yellow" } },
+    yellow: { on: { TIMER: "red" } },
+  },
 });
 
 trafficLight.state; // 'red'
-trafficLight.transition('TIMER');
+trafficLight.transition("TIMER");
 trafficLight.state; // 'green'
 
 // Order workflow with guards
 const orderMachine = new StateMachine({
-  initial: 'pending',
+  initial: "pending",
   context: { paid: false },
   states: {
     pending: {
       on: {
         PAY: {
-          target: 'processing',
-          action: (ctx) => { ctx.paid = true; }
+          target: "processing",
+          action: (ctx) => {
+            ctx.paid = true;
+          },
         },
-        CANCEL: 'cancelled'
-      }
+        CANCEL: "cancelled",
+      },
     },
     processing: {
       on: {
         SHIP: {
-          target: 'shipped',
-          guard: (ctx) => ctx.paid === true
-        }
-      }
+          target: "shipped",
+          guard: (ctx) => ctx.paid === true,
+        },
+      },
     },
     shipped: {
       on: {
-        DELIVER: 'delivered'
-      }
+        DELIVER: "delivered",
+      },
     },
     delivered: {},
-    cancelled: {}
-  }
+    cancelled: {},
+  },
 });
 ```
 

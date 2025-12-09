@@ -23,7 +23,7 @@ function debounce(fn, delay) {
   // Step 4: Return the debounced function
 
   // Return a placeholder that doesn't work
-  throw new Error('Not implemented');
+  throw new Error("Not implemented");
 }
 
 /**
@@ -53,7 +53,7 @@ function throttle(fn, limit) {
   // Step 4: Return the throttled function
 
   // Return a placeholder that doesn't work
-  throw new Error('Not implemented');
+  throw new Error("Not implemented");
 }
 
 module.exports = { debounce, throttle };

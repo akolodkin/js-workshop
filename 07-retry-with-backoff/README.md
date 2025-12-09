@@ -3,6 +3,7 @@
 ## Difficulty: Medium
 
 ## Learning Objectives
+
 - Implement error recovery patterns
 - Understand exponential backoff algorithm
 - Work with async/await and error handling
@@ -14,10 +15,10 @@ Network requests can fail temporarily. Instead of failing immediately, we should
 
 ```javascript
 // Without retry: fails on first error
-await fetch('/api/data'); // Error: Server busy
+await fetch("/api/data"); // Error: Server busy
 
 // With retry: automatically retries with backoff
-await retry(() => fetch('/api/data'), { maxRetries: 3 });
+await retry(() => fetch("/api/data"), { maxRetries: 3 });
 // Attempt 1: fails, wait 1s
 // Attempt 2: fails, wait 2s
 // Attempt 3: success!
@@ -64,35 +65,34 @@ With jitter, add random 0-25% to the delay.
 
 ```javascript
 // Basic usage
-const data = await retry(
-  () => fetch('/api/data').then(r => r.json()),
-  { maxRetries: 3 }
-);
+const data = await retry(() => fetch("/api/data").then((r) => r.json()), {
+  maxRetries: 3,
+});
 
 // Exponential backoff
 await retry(fetchData, {
   maxRetries: 5,
   initialDelay: 1000,
-  backoff: 'exponential'
+  backoff: "exponential",
 });
 // Delays: 1s, 2s, 4s, 8s, 16s
 
 // Custom retry condition
 await retry(fetchData, {
-  retryIf: (error) => error.status === 429 || error.status >= 500
+  retryIf: (error) => error.status === 429 || error.status >= 500,
 });
 
 // With callback
 await retry(fetchData, {
   onRetry: (error, attempt) => {
     console.log(`Attempt ${attempt} failed: ${error.message}`);
-  }
+  },
 });
 
 // With jitter
 await retry(fetchData, {
-  backoff: 'exponential',
-  jitter: true
+  backoff: "exponential",
+  jitter: true,
 });
 // Delays: ~1.1s, ~2.3s, ~4.0s (randomized)
 ```

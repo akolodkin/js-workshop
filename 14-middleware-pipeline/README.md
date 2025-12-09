@@ -3,6 +3,7 @@
 ## Difficulty: Hard
 
 ## Learning Objectives
+
 - Understand the middleware pattern used in Express/Koa
 - Implement a composable processing pipeline
 - Work with next() continuation pattern
@@ -11,6 +12,7 @@
 ## The Problem
 
 Middleware is a pattern where requests pass through a chain of handlers. Each handler can:
+
 - Process the request
 - Modify the request/response
 - Pass control to the next handler
@@ -20,17 +22,17 @@ Middleware is a pattern where requests pass through a chain of handlers. Each ha
 const app = new Pipeline();
 
 app.use((ctx, next) => {
-  console.log('Start');
+  console.log("Start");
   next();
-  console.log('End');
+  console.log("End");
 });
 
 app.use((ctx, next) => {
-  ctx.body = 'Hello';
+  ctx.body = "Hello";
   next();
 });
 
-app.run({ body: '' });
+app.run({ body: "" });
 // Output: Start, End
 // ctx.body = 'Hello'
 ```
@@ -42,7 +44,9 @@ app.run({ body: '' });
 Create a `Pipeline` class with:
 
 #### `use(middleware)`
+
 Add middleware to the pipeline. Middleware signature:
+
 ```javascript
 function middleware(context, next) {
   // Do something before
@@ -52,6 +56,7 @@ function middleware(context, next) {
 ```
 
 #### `run(context)`
+
 Execute the pipeline with given context.
 
 ### Features
@@ -86,12 +91,12 @@ pipeline.use((ctx, next) => {
 
 // Handler
 pipeline.use((ctx, next) => {
-  ctx.body = { message: 'Success' };
+  ctx.body = { message: "Success" };
   ctx.status = 200;
 });
 
 // Run
-const ctx = { method: 'GET', path: '/api', token: 'abc123' };
+const ctx = { method: "GET", path: "/api", token: "abc123" };
 pipeline.run(ctx);
 console.log(ctx.status); // 200
 ```
@@ -126,7 +131,7 @@ await pipeline.run({ userId: 1 });
 
 ```javascript
 function compose(middleware) {
-  return function(context) {
+  return function (context) {
     function dispatch(i) {
       const fn = middleware[i];
       if (!fn) return Promise.resolve();

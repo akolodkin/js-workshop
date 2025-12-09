@@ -10,10 +10,8 @@ class LRUCache {
    */
   constructor(capacity) {
     // TODO: Initialize the cache
-
     // Step 1: Store capacity
     // this.capacity = capacity;
-
     // Step 2: Create storage (Map recommended)
     // this.cache = new Map();
   }
@@ -35,7 +33,7 @@ class LRUCache {
 
     // Step 3: If not exists, return undefined
 
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -45,11 +43,8 @@ class LRUCache {
    */
   put(key, value) {
     // TODO: Implement put
-
     // Step 1: If key already exists, delete it first (to update position)
-
     // Step 2: If at capacity, evict least recently used (first item)
-
     // Step 3: Add the new key-value pair (goes to end = most recent)
   }
 
@@ -61,7 +56,7 @@ class LRUCache {
   has(key) {
     // TODO: Implement has
 
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -72,7 +67,7 @@ class LRUCache {
   delete(key) {
     // TODO: Implement delete
 
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -80,7 +75,7 @@ class LRUCache {
    */
   clear() {
     // TODO: Implement clear
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -90,7 +85,7 @@ class LRUCache {
   get size() {
     // TODO: Return current size
 
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -100,7 +95,7 @@ class LRUCache {
   keys() {
     // TODO: Return array of keys
 
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -110,7 +105,7 @@ class LRUCache {
   values() {
     // TODO: Return array of values
 
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 }
 

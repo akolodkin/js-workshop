@@ -3,6 +3,7 @@
 ## Difficulty: Hard
 
 ## Learning Objectives
+
 - Understand Inversion of Control (IoC) principle
 - Implement a simple DI container
 - Learn about loose coupling and testability
@@ -32,11 +33,11 @@ class UserService {
 }
 
 // Configure in container
-container.register('db', Database);
-container.register('logger', Logger);
-container.register('userService', UserService, ['db', 'logger']);
+container.register("db", Database);
+container.register("logger", Logger);
+container.register("userService", UserService, ["db", "logger"]);
 
-const userService = container.resolve('userService');
+const userService = container.resolve("userService");
 ```
 
 ## Requirements
@@ -46,35 +47,43 @@ const userService = container.resolve('userService');
 Create a `Container` class with:
 
 #### `register(name, Class, dependencies = [])`
+
 Register a service with its dependencies.
 
 ```javascript
-container.register('logger', Logger);
-container.register('db', Database, ['logger']);
-container.register('userService', UserService, ['db', 'logger']);
+container.register("logger", Logger);
+container.register("db", Database, ["logger"]);
+container.register("userService", UserService, ["db", "logger"]);
 ```
 
 #### `registerInstance(name, instance)`
+
 Register an existing instance (singleton).
 
 ```javascript
-container.registerInstance('config', { apiKey: 'xxx' });
+container.registerInstance("config", { apiKey: "xxx" });
 ```
 
 #### `registerFactory(name, factory, dependencies = [])`
+
 Register a factory function.
 
 ```javascript
-container.registerFactory('connection', (config) => {
-  return createConnection(config.connectionString);
-}, ['config']);
+container.registerFactory(
+  "connection",
+  (config) => {
+    return createConnection(config.connectionString);
+  },
+  ["config"],
+);
 ```
 
 #### `resolve(name)`
+
 Get an instance, creating if necessary.
 
 ```javascript
-const service = container.resolve('userService');
+const service = container.resolve("userService");
 ```
 
 ### Features
@@ -91,9 +100,11 @@ const container = new Container();
 
 // Simple registration
 class Logger {
-  log(msg) { console.log(msg); }
+  log(msg) {
+    console.log(msg);
+  }
 }
-container.register('logger', Logger);
+container.register("logger", Logger);
 
 // With dependencies
 class Database {
@@ -105,20 +116,20 @@ class Database {
     return [];
   }
 }
-container.register('db', Database, ['logger']);
+container.register("db", Database, ["logger"]);
 
 // Resolve
-const db = container.resolve('db');
-db.query('SELECT * FROM users');
+const db = container.resolve("db");
+db.query("SELECT * FROM users");
 
 // Singleton
-container.register('logger', Logger, [], { singleton: true });
-const logger1 = container.resolve('logger');
-const logger2 = container.resolve('logger');
+container.register("logger", Logger, [], { singleton: true });
+const logger1 = container.resolve("logger");
+const logger2 = container.resolve("logger");
 console.log(logger1 === logger2); // true
 
 // Factory
-container.registerFactory('timestamp', () => Date.now());
+container.registerFactory("timestamp", () => Date.now());
 ```
 
 ## Hints
@@ -133,21 +144,21 @@ container.registerFactory('timestamp', () => Date.now());
 
 ```javascript
 // Config
-container.registerInstance('config', {
-  dbUrl: 'mongodb://localhost',
-  apiKey: process.env.API_KEY
+container.registerInstance("config", {
+  dbUrl: "mongodb://localhost",
+  apiKey: process.env.API_KEY,
 });
 
 // Services
-container.register('logger', ConsoleLogger, [], { singleton: true });
-container.register('db', MongoDatabase, ['config', 'logger']);
-container.register('cache', RedisCache, ['config']);
-container.register('userRepo', UserRepository, ['db', 'cache']);
-container.register('authService', AuthService, ['userRepo', 'config']);
-container.register('userController', UserController, ['authService', 'logger']);
+container.register("logger", ConsoleLogger, [], { singleton: true });
+container.register("db", MongoDatabase, ["config", "logger"]);
+container.register("cache", RedisCache, ["config"]);
+container.register("userRepo", UserRepository, ["db", "cache"]);
+container.register("authService", AuthService, ["userRepo", "config"]);
+container.register("userController", UserController, ["authService", "logger"]);
 
 // Usage
-const controller = container.resolve('userController');
+const controller = container.resolve("userController");
 ```
 
 ## Resources

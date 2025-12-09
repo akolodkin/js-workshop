@@ -17,10 +17,8 @@ class Container {
    */
   register(name, Class, dependencies = [], options = {}) {
     // TODO: Implement register
-
     // Store in registry:
     // { type: 'class', Class, dependencies, singleton, instance: null }
-
   }
 
   /**
@@ -30,10 +28,8 @@ class Container {
    */
   registerInstance(name, instance) {
     // TODO: Implement registerInstance
-
     // Store in registry:
     // { type: 'instance', instance }
-
   }
 
   /**
@@ -45,10 +41,8 @@ class Container {
    */
   registerFactory(name, factory, dependencies = [], options = {}) {
     // TODO: Implement registerFactory
-
     // Store in registry:
     // { type: 'factory', factory, dependencies, singleton, instance: null }
-
   }
 
   /**
@@ -93,7 +87,7 @@ class Container {
    */
   has(name) {
     // TODO: Implement has
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -103,7 +97,7 @@ class Container {
    */
   unregister(name) {
     // TODO: Implement unregister
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -111,7 +105,7 @@ class Container {
    */
   clear() {
     // TODO: Implement clear
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -120,7 +114,7 @@ class Container {
    */
   getRegistrations() {
     // TODO: Implement getRegistrations
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 }
 
@@ -164,7 +158,7 @@ class Database {
   }
 
   connect() {
-    this.logger.log('Database connected');
+    this.logger.log("Database connected");
     this.connected = true;
   }
 
@@ -204,5 +198,5 @@ module.exports = {
   Logger,
   Database,
   UserRepository,
-  UserService
+  UserService,
 };

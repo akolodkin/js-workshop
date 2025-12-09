@@ -3,6 +3,7 @@
 ## Difficulty: Medium
 
 ## Learning Objectives
+
 - Understand the difference between shallow and deep copying
 - Handle different JavaScript data types during cloning
 - Work with recursion for nested structures
@@ -48,13 +49,13 @@ const arr = [1, { x: 2 }, [3, 4]];
 const clonedArr = deepClone(arr);
 
 // Date
-const date = new Date('2024-01-01');
+const date = new Date("2024-01-01");
 const clonedDate = deepClone(date);
 clonedDate.setFullYear(2000);
 console.log(date.getFullYear()); // 2024
 
 // Circular reference (bonus)
-const circular = { name: 'circular' };
+const circular = { name: "circular" };
 circular.self = circular;
 const clonedCircular = deepClone(circular);
 console.log(clonedCircular.self === clonedCircular); // true

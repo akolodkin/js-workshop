@@ -3,6 +3,7 @@
 ## Difficulty: Medium
 
 ## Learning Objectives
+
 - Understand closure-based function utilities
 - Learn timing and execution control patterns
 - Handle `this` context and arguments correctly
@@ -28,6 +29,7 @@ const debouncedSearch = debounce(search, 300);
 ```
 
 Requirements:
+
 - Returns a new function that wraps `fn`
 - Calling the wrapper resets the delay timer
 - Preserves `this` context and all arguments
@@ -44,6 +46,7 @@ const throttledScroll = throttle(onScroll, 100);
 ```
 
 Requirements:
+
 - Returns a new function that wraps `fn`
 - First call executes immediately
 - Subsequent calls within `limit` are ignored
@@ -54,17 +57,19 @@ Requirements:
 
 ```javascript
 // Debounce - search after user stops typing
-const searchInput = document.getElementById('search');
+const searchInput = document.getElementById("search");
 const debouncedSearch = debounce((query) => {
-  console.log('Searching for:', query);
+  console.log("Searching for:", query);
 }, 300);
-searchInput.addEventListener('input', (e) => debouncedSearch(e.target.value));
+searchInput.addEventListener("input", (e) => debouncedSearch(e.target.value));
 
 // Throttle - update position at most every 100ms
 const throttledUpdate = throttle((x, y) => {
-  console.log('Position:', x, y);
+  console.log("Position:", x, y);
 }, 100);
-document.addEventListener('mousemove', (e) => throttledUpdate(e.clientX, e.clientY));
+document.addEventListener("mousemove", (e) =>
+  throttledUpdate(e.clientX, e.clientY),
+);
 
 // Cancel pending execution
 debouncedSearch.cancel();

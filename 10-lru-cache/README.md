@@ -3,6 +3,7 @@
 ## Difficulty: Hard
 
 ## Learning Objectives
+
 - Implement a cache with eviction policy
 - Understand LRU (Least Recently Used) algorithm
 - Work with Map for O(1) operations
@@ -14,11 +15,11 @@ A cache stores frequently accessed data for quick retrieval. When the cache is f
 
 ```javascript
 const cache = new LRUCache(3);
-cache.put('a', 1);
-cache.put('b', 2);
-cache.put('c', 3); // Cache: [a, b, c]
-cache.get('a');     // Access 'a', moves to end: [b, c, a]
-cache.put('d', 4);  // Cache full, evict 'b' (least recent): [c, a, d]
+cache.put("a", 1);
+cache.put("b", 2);
+cache.put("c", 3); // Cache: [a, b, c]
+cache.get("a"); // Access 'a', moves to end: [b, c, a]
+cache.put("d", 4); // Cache full, evict 'b' (least recent): [c, a, d]
 ```
 
 ## Requirements
@@ -36,24 +37,29 @@ const cache = new LRUCache(capacity);
 ### Methods
 
 #### `get(key)`
+
 - Returns the value if key exists
 - Returns `undefined` (or -1) if not found
 - Marks the key as recently used
 
 #### `put(key, value)`
+
 - Inserts or updates the key-value pair
 - Marks the key as recently used
 - If capacity exceeded, evicts the least recently used item
 
 #### `has(key)`
+
 - Returns `true` if key exists, `false` otherwise
 - Does NOT update recency
 
 #### `delete(key)`
+
 - Removes the key-value pair
 - Returns `true` if existed, `false` otherwise
 
 #### `clear()`
+
 - Removes all items from cache
 
 ### Properties
@@ -66,23 +72,24 @@ const cache = new LRUCache(capacity);
 ```javascript
 const cache = new LRUCache(2);
 
-cache.put('a', 1);
-cache.put('b', 2);
-console.log(cache.get('a')); // 1
+cache.put("a", 1);
+cache.put("b", 2);
+console.log(cache.get("a")); // 1
 
-cache.put('c', 3); // Evicts 'b' (least recent)
-console.log(cache.get('b')); // undefined
-console.log(cache.get('c')); // 3
+cache.put("c", 3); // Evicts 'b' (least recent)
+console.log(cache.get("b")); // undefined
+console.log(cache.get("c")); // 3
 
-cache.put('d', 4); // Evicts 'a'
-console.log(cache.get('a')); // undefined
-console.log(cache.get('c')); // 3
-console.log(cache.get('d')); // 4
+cache.put("d", 4); // Evicts 'a'
+console.log(cache.get("a")); // undefined
+console.log(cache.get("c")); // 3
+console.log(cache.get("d")); // 4
 ```
 
 ## Implementation Options
 
 ### Option 1: Map (Recommended)
+
 JavaScript's `Map` maintains insertion order. Delete and re-insert to move to end.
 
 ```javascript
@@ -96,6 +103,7 @@ const [firstKey] = map.keys();
 ```
 
 ### Option 2: Doubly Linked List + Map
+
 More traditional approach with O(1) for all operations.
 
 ## Time Complexity Goals

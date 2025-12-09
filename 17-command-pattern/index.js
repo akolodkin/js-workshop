@@ -20,11 +20,8 @@ class CommandManager {
    */
   execute(command) {
     // TODO: Implement execute
-
     // Step 1: Call command.execute()
-
     // Step 2: Push to undo stack
-
     // Step 3: Clear redo stack (new action invalidates redo history)
   }
 
@@ -45,7 +42,7 @@ class CommandManager {
 
     // Step 5: Return true
 
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -65,7 +62,7 @@ class CommandManager {
 
     // Step 5: Return true
 
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -74,7 +71,7 @@ class CommandManager {
    */
   canUndo() {
     // TODO: Return whether undo stack has items
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -83,7 +80,7 @@ class CommandManager {
    */
   canRedo() {
     // TODO: Return whether redo stack has items
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -92,7 +89,7 @@ class CommandManager {
    */
   get history() {
     // TODO: Return copy of undo stack
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -188,7 +185,7 @@ class MacroCommand {
   constructor(commands = []) {
     // TODO: Store commands array
     // this.commands = commands;
-    this.description = 'Macro';
+    this.description = "Macro";
   }
 
   /**
@@ -235,5 +232,5 @@ module.exports = {
   MultiplyCommand,
   DivideCommand,
   MacroCommand,
-  SetValueCommand
+  SetValueCommand,
 };

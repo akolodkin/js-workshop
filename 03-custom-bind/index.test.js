@@ -1,8 +1,8 @@
-const { customBind } = require('./index');
+const { customBind } = require("./index");
 
-describe('customBind', () => {
-  describe('basic binding', () => {
-    test('should bind this context', () => {
+describe("customBind", () => {
+  describe("basic binding", () => {
+    test("should bind this context", () => {
       const obj = { value: 42 };
       function getValue() {
         return this.value;
@@ -11,26 +11,28 @@ describe('customBind', () => {
       expect(bound()).toBe(42);
     });
 
-    test('should work with methods that use this', () => {
-      const person = { name: 'Alice' };
+    test("should work with methods that use this", () => {
+      const person = { name: "Alice" };
       function greet() {
         return `Hello, ${this.name}`;
       }
       const bound = customBind(greet, person);
-      expect(bound()).toBe('Hello, Alice');
+      expect(bound()).toBe("Hello, Alice");
     });
 
-    test('should bind to null context', () => {
+    test("should bind to null context", () => {
       function getThis() {
         return this;
       }
       const bound = customBind(getThis, null);
       // In non-strict mode, null becomes global; in strict, stays null
       const result = bound();
-      expect(result === null || result === global || result === undefined).toBe(true);
+      expect(result === null || result === global || result === undefined).toBe(
+        true,
+      );
     });
 
-    test('should bind to undefined context', () => {
+    test("should bind to undefined context", () => {
       function getThis() {
         return this;
       }
@@ -40,8 +42,8 @@ describe('customBind', () => {
     });
   });
 
-  describe('argument handling', () => {
-    test('should pass arguments to the original function', () => {
+  describe("argument handling", () => {
+    test("should pass arguments to the original function", () => {
       const obj = {};
       function sum(a, b, c) {
         return a + b + c;
@@ -50,7 +52,7 @@ describe('customBind', () => {
       expect(bound(1, 2, 3)).toBe(6);
     });
 
-    test('should support partial application', () => {
+    test("should support partial application", () => {
       function sum(a, b, c) {
         return a + b + c;
       }
@@ -58,7 +60,7 @@ describe('customBind', () => {
       expect(bound(20, 30)).toBe(60);
     });
 
-    test('should support multiple pre-bound arguments', () => {
+    test("should support multiple pre-bound arguments", () => {
       function sum(a, b, c, d) {
         return a + b + c + d;
       }
@@ -66,15 +68,15 @@ describe('customBind', () => {
       expect(bound(3, 4)).toBe(10);
     });
 
-    test('should combine bound and called arguments in correct order', () => {
+    test("should combine bound and called arguments in correct order", () => {
       function concat(...args) {
-        return args.join('-');
+        return args.join("-");
       }
-      const bound = customBind(concat, null, 'a', 'b');
-      expect(bound('c', 'd')).toBe('a-b-c-d');
+      const bound = customBind(concat, null, "a", "b");
+      expect(bound("c", "d")).toBe("a-b-c-d");
     });
 
-    test('should work with no pre-bound arguments', () => {
+    test("should work with no pre-bound arguments", () => {
       function identity(x) {
         return x;
       }
@@ -83,8 +85,8 @@ describe('customBind', () => {
     });
   });
 
-  describe('return value', () => {
-    test('should return the original function return value', () => {
+  describe("return value", () => {
+    test("should return the original function return value", () => {
       function double(x) {
         return x * 2;
       }
@@ -92,7 +94,7 @@ describe('customBind', () => {
       expect(bound(21)).toBe(42);
     });
 
-    test('should return undefined if original returns undefined', () => {
+    test("should return undefined if original returns undefined", () => {
       function noReturn() {
         // No return statement
       }
@@ -100,46 +102,46 @@ describe('customBind', () => {
       expect(bound()).toBeUndefined();
     });
 
-    test('should handle object return values', () => {
+    test("should handle object return values", () => {
       function createObj(name) {
         return { name, created: true };
       }
       const bound = customBind(createObj, null);
-      expect(bound('test')).toEqual({ name: 'test', created: true });
+      expect(bound("test")).toEqual({ name: "test", created: true });
     });
   });
 
-  describe('constructor usage (new keyword)', () => {
-    test('should work with new keyword', () => {
+  describe("constructor usage (new keyword)", () => {
+    test("should work with new keyword", () => {
       function Person(name) {
         this.name = name;
       }
       const BoundPerson = customBind(Person, null);
-      const alice = new BoundPerson('Alice');
-      expect(alice.name).toBe('Alice');
+      const alice = new BoundPerson("Alice");
+      expect(alice.name).toBe("Alice");
     });
 
-    test('should ignore bound context when using new', () => {
-      const boundContext = { name: 'Ignored' };
+    test("should ignore bound context when using new", () => {
+      const boundContext = { name: "Ignored" };
       function Person(name) {
         this.name = name;
       }
       const BoundPerson = customBind(Person, boundContext);
-      const bob = new BoundPerson('Bob');
-      expect(bob.name).toBe('Bob');
+      const bob = new BoundPerson("Bob");
+      expect(bob.name).toBe("Bob");
       expect(bob).not.toBe(boundContext);
     });
 
-    test('should preserve instanceof relationship', () => {
+    test("should preserve instanceof relationship", () => {
       function Animal(type) {
         this.type = type;
       }
       const BoundAnimal = customBind(Animal, null);
-      const dog = new BoundAnimal('dog');
+      const dog = new BoundAnimal("dog");
       expect(dog instanceof Animal).toBe(true);
     });
 
-    test('should use pre-bound arguments with new', () => {
+    test("should use pre-bound arguments with new", () => {
       function Point(x, y) {
         this.x = x;
         this.y = y;
@@ -150,11 +152,11 @@ describe('customBind', () => {
       expect(point.y).toBe(20);
     });
 
-    test('should inherit prototype methods', () => {
+    test("should inherit prototype methods", () => {
       function Counter(initial) {
         this.count = initial;
       }
-      Counter.prototype.increment = function() {
+      Counter.prototype.increment = function () {
         this.count++;
         return this.count;
       };
@@ -167,21 +169,21 @@ describe('customBind', () => {
     });
   });
 
-  describe('edge cases', () => {
-    test('should throw TypeError for non-function', () => {
-      expect(() => customBind('not a function', null)).toThrow(TypeError);
+  describe("edge cases", () => {
+    test("should throw TypeError for non-function", () => {
+      expect(() => customBind("not a function", null)).toThrow(TypeError);
       expect(() => customBind(123, null)).toThrow(TypeError);
       expect(() => customBind({}, null)).toThrow(TypeError);
     });
 
-    test('should handle arrow functions (ignores bound context)', () => {
+    test("should handle arrow functions (ignores bound context)", () => {
       const obj = { value: 42 };
-      const arrow = () => 'arrow';
+      const arrow = () => "arrow";
       const bound = customBind(arrow, obj);
-      expect(bound()).toBe('arrow');
+      expect(bound()).toBe("arrow");
     });
 
-    test('should be callable multiple times', () => {
+    test("should be callable multiple times", () => {
       const obj = { x: 1 };
       function getX() {
         return this.x;
@@ -192,7 +194,7 @@ describe('customBind', () => {
       expect(bound()).toBe(1);
     });
 
-    test('should allow chained binding', () => {
+    test("should allow chained binding", () => {
       function add(a, b, c) {
         return a + b + c;
       }

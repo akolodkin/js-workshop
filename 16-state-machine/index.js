@@ -11,14 +11,11 @@ class StateMachine {
    */
   constructor(config) {
     // TODO: Implement constructor
-
     // Step 1: Validate config has initial and states
-
     // Step 2: Store configuration
     // this.config = config;
     // this.currentState = config.initial;
     // this.context = config.context || {};
-
     // Step 3: Validate initial state exists in states
   }
 
@@ -28,7 +25,7 @@ class StateMachine {
    */
   get state() {
     // TODO: Return current state
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -58,7 +55,7 @@ class StateMachine {
 
     // Step 7: Return true
 
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -72,7 +69,7 @@ class StateMachine {
     // Check if event exists for current state
     // Check guard if present
 
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -84,7 +81,7 @@ class StateMachine {
 
     // Return array of event names from current state's 'on' config
 
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -93,7 +90,7 @@ class StateMachine {
    */
   getContext() {
     // TODO: Return context
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -102,7 +99,6 @@ class StateMachine {
    */
   updateContext(updater) {
     // TODO: Implement updateContext
-
     // If updater is function: this.context = updater(this.context)
     // If updater is object: merge with existing context
   }
@@ -113,7 +109,7 @@ class StateMachine {
    */
   isFinal() {
     // TODO: Check if current state has no transitions
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**

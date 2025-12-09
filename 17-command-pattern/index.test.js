@@ -5,30 +5,30 @@ const {
   MultiplyCommand,
   DivideCommand,
   MacroCommand,
-  SetValueCommand
-} = require('./index');
+  SetValueCommand,
+} = require("./index");
 
-describe('CommandManager', () => {
+describe("CommandManager", () => {
   let manager;
 
   beforeEach(() => {
     manager = new CommandManager();
   });
 
-  describe('execute', () => {
-    test('should execute command', () => {
+  describe("execute", () => {
+    test("should execute command", () => {
       const calc = { value: 0 };
       manager.execute(new AddCommand(calc, 5));
       expect(calc.value).toBe(5);
     });
 
-    test('should add to history', () => {
+    test("should add to history", () => {
       const calc = { value: 0 };
       manager.execute(new AddCommand(calc, 5));
       expect(manager.history.length).toBe(1);
     });
 
-    test('should clear redo stack on new execute', () => {
+    test("should clear redo stack on new execute", () => {
       const calc = { value: 0 };
       manager.execute(new AddCommand(calc, 5));
       manager.undo();
@@ -39,25 +39,25 @@ describe('CommandManager', () => {
     });
   });
 
-  describe('undo', () => {
-    test('should undo last command', () => {
+  describe("undo", () => {
+    test("should undo last command", () => {
       const calc = { value: 0 };
       manager.execute(new AddCommand(calc, 5));
       manager.undo();
       expect(calc.value).toBe(0);
     });
 
-    test('should return true when undo performed', () => {
+    test("should return true when undo performed", () => {
       const calc = { value: 0 };
       manager.execute(new AddCommand(calc, 5));
       expect(manager.undo()).toBe(true);
     });
 
-    test('should return false when nothing to undo', () => {
+    test("should return false when nothing to undo", () => {
       expect(manager.undo()).toBe(false);
     });
 
-    test('should undo multiple commands in order', () => {
+    test("should undo multiple commands in order", () => {
       const calc = { value: 0 };
       manager.execute(new AddCommand(calc, 5));
       manager.execute(new AddCommand(calc, 10));
@@ -73,8 +73,8 @@ describe('CommandManager', () => {
     });
   });
 
-  describe('redo', () => {
-    test('should redo undone command', () => {
+  describe("redo", () => {
+    test("should redo undone command", () => {
       const calc = { value: 0 };
       manager.execute(new AddCommand(calc, 5));
       manager.undo();
@@ -82,18 +82,18 @@ describe('CommandManager', () => {
       expect(calc.value).toBe(5);
     });
 
-    test('should return true when redo performed', () => {
+    test("should return true when redo performed", () => {
       const calc = { value: 0 };
       manager.execute(new AddCommand(calc, 5));
       manager.undo();
       expect(manager.redo()).toBe(true);
     });
 
-    test('should return false when nothing to redo', () => {
+    test("should return false when nothing to redo", () => {
       expect(manager.redo()).toBe(false);
     });
 
-    test('should redo multiple commands', () => {
+    test("should redo multiple commands", () => {
       const calc = { value: 0 };
       manager.execute(new AddCommand(calc, 5));
       manager.execute(new AddCommand(calc, 10));
@@ -108,22 +108,22 @@ describe('CommandManager', () => {
     });
   });
 
-  describe('canUndo and canRedo', () => {
-    test('canUndo should return false initially', () => {
+  describe("canUndo and canRedo", () => {
+    test("canUndo should return false initially", () => {
       expect(manager.canUndo()).toBe(false);
     });
 
-    test('canUndo should return true after execute', () => {
+    test("canUndo should return true after execute", () => {
       const calc = { value: 0 };
       manager.execute(new AddCommand(calc, 5));
       expect(manager.canUndo()).toBe(true);
     });
 
-    test('canRedo should return false initially', () => {
+    test("canRedo should return false initially", () => {
       expect(manager.canRedo()).toBe(false);
     });
 
-    test('canRedo should return true after undo', () => {
+    test("canRedo should return true after undo", () => {
       const calc = { value: 0 };
       manager.execute(new AddCommand(calc, 5));
       manager.undo();
@@ -131,8 +131,8 @@ describe('CommandManager', () => {
     });
   });
 
-  describe('clear', () => {
-    test('should clear all history', () => {
+  describe("clear", () => {
+    test("should clear all history", () => {
       const calc = { value: 0 };
       manager.execute(new AddCommand(calc, 5));
       manager.undo();
@@ -145,7 +145,7 @@ describe('CommandManager', () => {
   });
 });
 
-describe('Calculator Commands', () => {
+describe("Calculator Commands", () => {
   let calc;
   let manager;
 
@@ -154,7 +154,7 @@ describe('Calculator Commands', () => {
     manager = new CommandManager();
   });
 
-  test('AddCommand should add value', () => {
+  test("AddCommand should add value", () => {
     manager.execute(new AddCommand(calc, 5));
     expect(calc.value).toBe(15);
 
@@ -162,7 +162,7 @@ describe('Calculator Commands', () => {
     expect(calc.value).toBe(10);
   });
 
-  test('SubtractCommand should subtract value', () => {
+  test("SubtractCommand should subtract value", () => {
     manager.execute(new SubtractCommand(calc, 3));
     expect(calc.value).toBe(7);
 
@@ -170,7 +170,7 @@ describe('Calculator Commands', () => {
     expect(calc.value).toBe(10);
   });
 
-  test('MultiplyCommand should multiply value', () => {
+  test("MultiplyCommand should multiply value", () => {
     manager.execute(new MultiplyCommand(calc, 2));
     expect(calc.value).toBe(20);
 
@@ -178,7 +178,7 @@ describe('Calculator Commands', () => {
     expect(calc.value).toBe(10);
   });
 
-  test('DivideCommand should divide value', () => {
+  test("DivideCommand should divide value", () => {
     manager.execute(new DivideCommand(calc, 2));
     expect(calc.value).toBe(5);
 
@@ -186,7 +186,7 @@ describe('Calculator Commands', () => {
     expect(calc.value).toBe(10);
   });
 
-  test('SetValueCommand should set value', () => {
+  test("SetValueCommand should set value", () => {
     manager.execute(new SetValueCommand(calc, 100));
     expect(calc.value).toBe(100);
 
@@ -195,26 +195,26 @@ describe('Calculator Commands', () => {
   });
 });
 
-describe('MacroCommand', () => {
-  test('should execute all commands', () => {
+describe("MacroCommand", () => {
+  test("should execute all commands", () => {
     const calc = { value: 0 };
     const macro = new MacroCommand([
       new AddCommand(calc, 10),
       new MultiplyCommand(calc, 2),
-      new SubtractCommand(calc, 5)
+      new SubtractCommand(calc, 5),
     ]);
 
     macro.execute();
     expect(calc.value).toBe(15); // (0 + 10) * 2 - 5
   });
 
-  test('should undo all commands in reverse', () => {
+  test("should undo all commands in reverse", () => {
     const calc = { value: 0 };
     const manager = new CommandManager();
     const macro = new MacroCommand([
       new AddCommand(calc, 10),
       new MultiplyCommand(calc, 2),
-      new SubtractCommand(calc, 5)
+      new SubtractCommand(calc, 5),
     ]);
 
     manager.execute(macro);
@@ -224,7 +224,7 @@ describe('MacroCommand', () => {
     expect(calc.value).toBe(0);
   });
 
-  test('should support adding commands', () => {
+  test("should support adding commands", () => {
     const calc = { value: 10 };
     const macro = new MacroCommand();
     macro.add(new AddCommand(calc, 5));
@@ -235,8 +235,8 @@ describe('MacroCommand', () => {
   });
 });
 
-describe('Complex scenarios', () => {
-  test('should handle interleaved undo/redo', () => {
+describe("Complex scenarios", () => {
+  test("should handle interleaved undo/redo", () => {
     const calc = { value: 0 };
     const manager = new CommandManager();
 
@@ -253,15 +253,15 @@ describe('Complex scenarios', () => {
     expect(manager.canRedo()).toBe(false);
   });
 
-  test('should maintain correct state through many operations', () => {
+  test("should maintain correct state through many operations", () => {
     const calc = { value: 100 };
     const manager = new CommandManager();
 
     // Series of operations
-    manager.execute(new AddCommand(calc, 50));      // 150
-    manager.execute(new MultiplyCommand(calc, 2));   // 300
+    manager.execute(new AddCommand(calc, 50)); // 150
+    manager.execute(new MultiplyCommand(calc, 2)); // 300
     manager.execute(new SubtractCommand(calc, 100)); // 200
-    manager.execute(new DivideCommand(calc, 4));     // 50
+    manager.execute(new DivideCommand(calc, 4)); // 50
 
     expect(calc.value).toBe(50);
 

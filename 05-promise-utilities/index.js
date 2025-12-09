@@ -31,7 +31,7 @@ function promiseAll(promises) {
 
   // });
 
-  return Promise.reject(new Error('Not implemented')); // Broken: Replace with your implementation
+  return Promise.reject(new Error("Not implemented")); // Broken: Replace with your implementation
 }
 
 /**
@@ -85,7 +85,7 @@ function promiseAllSettled(promises) {
   // - Never reject the outer promise
   // - Resolve when all have settled
 
-  return Promise.reject(new Error('Not implemented')); // Broken: Replace with your implementation
+  return Promise.reject(new Error("Not implemented")); // Broken: Replace with your implementation
 }
 
 /**
@@ -118,7 +118,7 @@ function promiseAny(promises) {
   // Note: AggregateError is created like:
   // new AggregateError(errorsArray, 'All promises were rejected')
 
-  return Promise.reject(new AggregateError([], 'No promises')); // Replace
+  return Promise.reject(new AggregateError([], "No promises")); // Replace
 }
 
 module.exports = { promiseAll, promiseRace, promiseAllSettled, promiseAny };

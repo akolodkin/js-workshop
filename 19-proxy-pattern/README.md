@@ -3,6 +3,7 @@
 ## Difficulty: Medium
 
 ## Learning Objectives
+
 - Understand the Proxy structural pattern
 - Use JavaScript's Proxy API
 - Implement validation, logging, and caching proxies
@@ -11,6 +12,7 @@
 ## The Problem
 
 A Proxy wraps an object and intercepts operations on it. This enables:
+
 - Validation before setting properties
 - Logging property access
 - Lazy loading
@@ -19,13 +21,13 @@ A Proxy wraps an object and intercepts operations on it. This enables:
 
 ```javascript
 // Without proxy: no control
-user.age = -5;  // Invalid but allowed!
+user.age = -5; // Invalid but allowed!
 
 // With proxy: validation
 const safeUser = createValidatingProxy(user, {
-  age: (value) => value >= 0 && value <= 150
+  age: (value) => value >= 0 && value <= 150,
 });
-safeUser.age = -5;  // Throws error!
+safeUser.age = -5; // Throws error!
 ```
 
 ## Requirements
@@ -35,16 +37,19 @@ safeUser.age = -5;  // Throws error!
 Create a proxy that validates property values:
 
 ```javascript
-const user = createValidatingProxy({}, {
-  name: (v) => typeof v === 'string' && v.length > 0,
-  age: (v) => Number.isInteger(v) && v >= 0,
-  email: (v) => /^[^@]+@[^@]+\.[^@]+$/.test(v)
-});
+const user = createValidatingProxy(
+  {},
+  {
+    name: (v) => typeof v === "string" && v.length > 0,
+    age: (v) => Number.isInteger(v) && v >= 0,
+    email: (v) => /^[^@]+@[^@]+\.[^@]+$/.test(v),
+  },
+);
 
-user.name = 'Alice';  // OK
-user.age = 25;        // OK
-user.age = -5;        // Error!
-user.email = 'bad';   // Error!
+user.name = "Alice"; // OK
+user.age = 25; // OK
+user.age = -5; // Error!
+user.email = "bad"; // Error!
 ```
 
 ### 2. Logging Proxy
@@ -56,9 +61,9 @@ const logged = createLoggingProxy(obj, (action, prop, value) => {
   console.log(`${action} ${prop}: ${value}`);
 });
 
-logged.name = 'Alice';  // Log: "set name: Alice"
-logged.name;            // Log: "get name: Alice"
-delete logged.name;     // Log: "delete name: undefined"
+logged.name = "Alice"; // Log: "set name: Alice"
+logged.name; // Log: "get name: Alice"
+delete logged.name; // Log: "delete name: undefined"
 ```
 
 ### 3. Caching Proxy
@@ -67,12 +72,14 @@ Create a proxy that caches method results:
 
 ```javascript
 const api = {
-  fetchUser(id) { /* expensive */ }
+  fetchUser(id) {
+    /* expensive */
+  },
 };
 
-const cached = createCachingProxy(api, ['fetchUser']);
-cached.fetchUser(1);  // Fetches
-cached.fetchUser(1);  // Returns cached
+const cached = createCachingProxy(api, ["fetchUser"]);
+cached.fetchUser(1); // Fetches
+cached.fetchUser(1); // Returns cached
 ```
 
 ### 4. Access Control Proxy
@@ -80,15 +87,15 @@ cached.fetchUser(1);  // Returns cached
 Create a proxy that restricts access:
 
 ```javascript
-const admin = { role: 'admin', secret: '12345' };
+const admin = { role: "admin", secret: "12345" };
 const restricted = createAccessProxy(admin, {
-  readable: ['role'],
-  writable: []
+  readable: ["role"],
+  writable: [],
 });
 
-restricted.role;    // 'admin'
-restricted.secret;  // Error: Access denied
-restricted.role = 'user';  // Error: Property is read-only
+restricted.role; // 'admin'
+restricted.secret; // Error: Access denied
+restricted.role = "user"; // Error: Property is read-only
 ```
 
 ## Examples
@@ -104,12 +111,12 @@ const handler = {
     console.log(`Setting ${prop} = ${value}`);
     target[prop] = value;
     return true;
-  }
+  },
 };
 
 const proxy = new Proxy({}, handler);
-proxy.name = 'Alice';  // "Setting name = Alice"
-proxy.name;            // "Getting name" -> "Alice"
+proxy.name = "Alice"; // "Setting name = Alice"
+proxy.name; // "Getting name" -> "Alice"
 
 // Traps available: get, set, has, deleteProperty, apply, construct, etc.
 ```

@@ -1,8 +1,8 @@
-const { memoize } = require('./index');
+const { memoize } = require("./index");
 
-describe('memoize', () => {
-  describe('basic functionality', () => {
-    test('should cache function results', () => {
+describe("memoize", () => {
+  describe("basic functionality", () => {
+    test("should cache function results", () => {
       let callCount = 0;
       const fn = (x) => {
         callCount++;
@@ -21,7 +21,7 @@ describe('memoize', () => {
       expect(callCount).toBe(2);
     });
 
-    test('should handle multiple arguments', () => {
+    test("should handle multiple arguments", () => {
       let callCount = 0;
       const add = (a, b) => {
         callCount++;
@@ -38,7 +38,7 @@ describe('memoize', () => {
       expect(callCount).toBe(2);
     });
 
-    test('should handle no arguments', () => {
+    test("should handle no arguments", () => {
       let callCount = 0;
       const getRandom = () => {
         callCount++;
@@ -52,7 +52,7 @@ describe('memoize', () => {
       expect(callCount).toBe(1);
     });
 
-    test('should handle string arguments', () => {
+    test("should handle string arguments", () => {
       let callCount = 0;
       const greet = (name) => {
         callCount++;
@@ -61,15 +61,15 @@ describe('memoize', () => {
 
       const memoized = memoize(greet);
 
-      expect(memoized('Alice')).toBe('Hello, Alice!');
-      expect(memoized('Alice')).toBe('Hello, Alice!');
+      expect(memoized("Alice")).toBe("Hello, Alice!");
+      expect(memoized("Alice")).toBe("Hello, Alice!");
       expect(callCount).toBe(1);
 
-      expect(memoized('Bob')).toBe('Hello, Bob!');
+      expect(memoized("Bob")).toBe("Hello, Bob!");
       expect(callCount).toBe(2);
     });
 
-    test('should cache null and undefined results', () => {
+    test("should cache null and undefined results", () => {
       let callCount = 0;
       const returnNull = () => {
         callCount++;
@@ -83,20 +83,20 @@ describe('memoize', () => {
       expect(callCount).toBe(1);
     });
 
-    test('should preserve this context', () => {
+    test("should preserve this context", () => {
       const obj = {
         multiplier: 2,
-        multiply: memoize(function(x) {
+        multiply: memoize(function (x) {
           return x * this.multiplier;
-        })
+        }),
       };
 
       expect(obj.multiply(5)).toBe(10);
     });
   });
 
-  describe('cache control', () => {
-    test('should have cache.clear() method', () => {
+  describe("cache control", () => {
+    test("should have cache.clear() method", () => {
       let callCount = 0;
       const fn = (x) => {
         callCount++;
@@ -115,7 +115,7 @@ describe('memoize', () => {
       expect(callCount).toBe(3);
     });
 
-    test('should have cache.size property', () => {
+    test("should have cache.size property", () => {
       const memoized = memoize((x) => x);
 
       expect(memoized.cache.size).toBe(0);
@@ -130,19 +130,20 @@ describe('memoize', () => {
       expect(memoized.cache.size).toBe(2);
     });
 
-    test('should have cache.has() method', () => {
+    test("should have cache.has() method", () => {
       const memoized = memoize((x) => x);
 
       memoized(1);
 
       // Key format may vary by implementation
-      const hasKey = memoized.cache.has('[1]') ||
-                     memoized.cache.has('1') ||
-                     memoized.cache.size > 0;
+      const hasKey =
+        memoized.cache.has("[1]") ||
+        memoized.cache.has("1") ||
+        memoized.cache.size > 0;
       expect(hasKey).toBe(true);
     });
 
-    test('should have cache.delete() method', () => {
+    test("should have cache.delete() method", () => {
       let callCount = 0;
       const fn = (x) => {
         callCount++;
@@ -162,8 +163,8 @@ describe('memoize', () => {
     });
   });
 
-  describe('maxSize option', () => {
-    test('should limit cache size', () => {
+  describe("maxSize option", () => {
+    test("should limit cache size", () => {
       const memoized = memoize((x) => x * 2, { maxSize: 2 });
 
       memoized(1);
@@ -174,7 +175,7 @@ describe('memoize', () => {
       expect(memoized.cache.size).toBe(2);
     });
 
-    test('should evict oldest entry when maxSize reached', () => {
+    test("should evict oldest entry when maxSize reached", () => {
       let callCount = 0;
       const fn = (x) => {
         callCount++;
@@ -197,7 +198,7 @@ describe('memoize', () => {
     });
   });
 
-  describe('ttl option', () => {
+  describe("ttl option", () => {
     beforeEach(() => {
       jest.useFakeTimers();
     });
@@ -206,7 +207,7 @@ describe('memoize', () => {
       jest.useRealTimers();
     });
 
-    test('should expire entries after ttl', () => {
+    test("should expire entries after ttl", () => {
       let callCount = 0;
       const fn = (x) => {
         callCount++;
@@ -227,7 +228,7 @@ describe('memoize', () => {
       expect(callCount).toBe(2);
     });
 
-    test('should not expire entries before ttl', () => {
+    test("should not expire entries before ttl", () => {
       let callCount = 0;
       const fn = (x) => {
         callCount++;
@@ -246,8 +247,8 @@ describe('memoize', () => {
     });
   });
 
-  describe('keyGenerator option', () => {
-    test('should use custom key generator', () => {
+  describe("keyGenerator option", () => {
+    test("should use custom key generator", () => {
       let callCount = 0;
       const fn = (obj) => {
         callCount++;
@@ -255,16 +256,16 @@ describe('memoize', () => {
       };
 
       const memoized = memoize(fn, {
-        keyGenerator: (args) => args[0].id
+        keyGenerator: (args) => args[0].id,
       });
 
-      memoized({ id: 1, name: 'Alice' });
-      memoized({ id: 1, name: 'Bob' }); // Same id, should be cached
+      memoized({ id: 1, name: "Alice" });
+      memoized({ id: 1, name: "Bob" }); // Same id, should be cached
 
       expect(callCount).toBe(1);
     });
 
-    test('should work with complex key generation', () => {
+    test("should work with complex key generation", () => {
       let callCount = 0;
       const fn = (a, b, c) => {
         callCount++;
@@ -272,7 +273,7 @@ describe('memoize', () => {
       };
 
       const memoized = memoize(fn, {
-        keyGenerator: (args) => args.sort().join('|')
+        keyGenerator: (args) => args.sort().join("|"),
       });
 
       memoized(1, 2, 3);
@@ -282,26 +283,26 @@ describe('memoize', () => {
     });
   });
 
-  describe('edge cases', () => {
-    test('should handle functions that throw', () => {
+  describe("edge cases", () => {
+    test("should handle functions that throw", () => {
       let callCount = 0;
       const fn = (x) => {
         callCount++;
-        if (x < 0) throw new Error('Negative!');
+        if (x < 0) throw new Error("Negative!");
         return x;
       };
 
       const memoized = memoize(fn);
 
-      expect(() => memoized(-1)).toThrow('Negative!');
+      expect(() => memoized(-1)).toThrow("Negative!");
       expect(callCount).toBe(1);
 
       // Should NOT cache errors
-      expect(() => memoized(-1)).toThrow('Negative!');
+      expect(() => memoized(-1)).toThrow("Negative!");
       expect(callCount).toBe(2);
     });
 
-    test('should handle recursive memoized functions', () => {
+    test("should handle recursive memoized functions", () => {
       let callCount = 0;
 
       const fibonacci = memoize((n) => {

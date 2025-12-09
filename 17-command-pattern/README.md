@@ -3,6 +3,7 @@
 ## Difficulty: Medium
 
 ## Learning Objectives
+
 - Understand the Command behavioral pattern
 - Implement undo/redo functionality
 - Encapsulate operations as objects
@@ -11,6 +12,7 @@
 ## The Problem
 
 The Command pattern turns requests into standalone objects. This enables:
+
 - Undo/redo operations
 - Command queuing
 - Logging and auditing
@@ -18,11 +20,11 @@ The Command pattern turns requests into standalone objects. This enables:
 
 ```javascript
 // Without command: direct calls, no undo
-editor.insertText('Hello');
+editor.insertText("Hello");
 // Can't undo!
 
 // With command: operations are reversible
-const insertCmd = new InsertCommand(editor, 'Hello');
+const insertCmd = new InsertCommand(editor, "Hello");
 commandManager.execute(insertCmd);
 commandManager.undo(); // Reverses the insert
 ```
@@ -32,6 +34,7 @@ commandManager.undo(); // Reverses the insert
 ### Command Interface
 
 Each command should have:
+
 - `execute()` - Perform the action
 - `undo()` - Reverse the action
 - `description` (optional) - For logging/display
@@ -51,9 +54,9 @@ manager.undo();
 manager.redo();
 
 // Get history
-manager.history;      // Array of executed commands
-manager.undoStack;    // Commands that can be undone
-manager.redoStack;    // Commands that can be redone
+manager.history; // Array of executed commands
+manager.undoStack; // Commands that can be undone
+manager.redoStack; // Commands that can be redone
 
 // Check availability
 manager.canUndo();
@@ -63,6 +66,7 @@ manager.canRedo();
 ### Example Commands
 
 Implement for a simple calculator:
+
 - `AddCommand(calculator, value)`
 - `SubtractCommand(calculator, value)`
 - `MultiplyCommand(calculator, value)`
@@ -75,33 +79,33 @@ Implement for a simple calculator:
 const calc = { value: 0 };
 const manager = new CommandManager();
 
-manager.execute(new AddCommand(calc, 10));      // value: 10
-manager.execute(new MultiplyCommand(calc, 2));  // value: 20
-manager.execute(new SubtractCommand(calc, 5));  // value: 15
+manager.execute(new AddCommand(calc, 10)); // value: 10
+manager.execute(new MultiplyCommand(calc, 2)); // value: 20
+manager.execute(new SubtractCommand(calc, 5)); // value: 15
 
-manager.undo();  // value: 20
-manager.undo();  // value: 10
-manager.redo();  // value: 20
+manager.undo(); // value: 20
+manager.undo(); // value: 10
+manager.redo(); // value: 20
 
 // Text editor commands
-const editor = { text: '' };
+const editor = { text: "" };
 
-manager.execute(new InsertCommand(editor, 0, 'Hello'));
-manager.execute(new InsertCommand(editor, 5, ' World'));
+manager.execute(new InsertCommand(editor, 0, "Hello"));
+manager.execute(new InsertCommand(editor, 5, " World"));
 // editor.text = 'Hello World'
 
-manager.undo();  // editor.text = 'Hello'
-manager.undo();  // editor.text = ''
+manager.undo(); // editor.text = 'Hello'
+manager.undo(); // editor.text = ''
 
 // Macro (composite command)
 const macro = new MacroCommand([
   new AddCommand(calc, 5),
   new MultiplyCommand(calc, 2),
-  new AddCommand(calc, 10)
+  new AddCommand(calc, 10),
 ]);
 
-manager.execute(macro);  // All three at once
-manager.undo();          // Reverses all three
+manager.execute(macro); // All three at once
+manager.undo(); // Reverses all three
 ```
 
 ## Hints

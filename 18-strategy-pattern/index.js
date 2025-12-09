@@ -24,7 +24,7 @@ class SortContext {
   sort(array) {
     // TODO: Delegate to strategy
     // Return sorted copy, don't mutate original
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 }
 
@@ -36,7 +36,7 @@ class BubbleSort {
     // TODO: Implement bubble sort
     // Return new sorted array
 
-    return ['NOT_IMPLEMENTED']; // Broken: Replace with implementation
+    return ["NOT_IMPLEMENTED"]; // Broken: Replace with implementation
   }
 }
 
@@ -84,7 +84,7 @@ class PricingContext {
 
   calculateTotal(items) {
     // TODO: Delegate to strategy
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 }
 
@@ -94,7 +94,7 @@ class PricingContext {
 class RegularPricing {
   calculate(items) {
     // TODO: Sum all item prices
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 }
 
@@ -110,7 +110,7 @@ class PercentageDiscount {
   calculate(items) {
     // TODO: Apply percentage discount
     // total * (1 - percentage/100)
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 }
 
@@ -126,7 +126,7 @@ class FixedDiscount {
   calculate(items) {
     // TODO: Subtract fixed amount from total
     // Don't go below 0
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 }
 
@@ -137,7 +137,7 @@ class BuyOneGetOneFree {
   calculate(items) {
     // TODO: Every second item is free
     // Sort by price desc, charge only every other item
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 }
 
@@ -155,7 +155,7 @@ class TieredDiscount {
 
   calculate(items) {
     // TODO: Apply tier discount based on subtotal
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 }
 
@@ -177,7 +177,7 @@ class ValidationContext {
 
   validate(data) {
     // TODO: Delegate to strategy
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 }
 
@@ -188,7 +188,7 @@ class StrictValidation {
   validate(data) {
     // TODO: Strict rules - all fields required, strict format
     // Return { valid: boolean, errors: string[] }
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 }
 
@@ -198,7 +198,7 @@ class StrictValidation {
 class LenientValidation {
   validate(data) {
     // TODO: Lenient rules - only critical fields required
-    return { valid: false, errors: ['Not implemented'] }; // Broken: Replace with implementation
+    return { valid: false, errors: ["Not implemented"] }; // Broken: Replace with implementation
   }
 }
 
@@ -223,12 +223,12 @@ class StrategyRegistry {
 
   get(name) {
     // TODO: Return strategy by name
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   has(name) {
     // TODO: Check if strategy exists
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 }
 
@@ -250,5 +250,5 @@ module.exports = {
   StrictValidation,
   LenientValidation,
   // Registry
-  StrategyRegistry
+  StrategyRegistry,
 };

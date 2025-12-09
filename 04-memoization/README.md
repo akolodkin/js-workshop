@@ -3,6 +3,7 @@
 ## Difficulty: Medium
 
 ## Learning Objectives
+
 - Understand memoization as an optimization technique
 - Work with closures for private cache storage
 - Learn cache key generation strategies
@@ -47,6 +48,7 @@ const options = {
 ```
 
 Requirements:
+
 - **maxSize**: Evict oldest entries when limit reached (FIFO)
 - **ttl**: Entries expire after specified milliseconds
 - **keyGenerator**: Custom function to generate cache keys
@@ -54,6 +56,7 @@ Requirements:
 ### Part 3: Cache Control
 
 Add methods to the memoized function:
+
 - `memoizedFn.cache.clear()` - Clear all cached values
 - `memoizedFn.cache.delete(key)` - Delete specific entry
 - `memoizedFn.cache.has(key)` - Check if key exists
@@ -84,12 +87,12 @@ memoAdd(2, 1); // Computed: 3 (different args)
 const memoized = memoize(expensiveOperation, {
   maxSize: 50,
   ttl: 60000, // 1 minute
-  keyGenerator: (args) => args.map(JSON.stringify).join('|')
+  keyGenerator: (args) => args.map(JSON.stringify).join("|"),
 });
 
 // Cache control
 memoized.cache.clear();
-memoized.cache.delete('1|2');
+memoized.cache.delete("1|2");
 console.log(memoized.cache.size); // 0
 ```
 

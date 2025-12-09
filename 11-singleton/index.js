@@ -20,7 +20,7 @@ class Singleton {
 
   static getInstance() {
     // TODO: Implement getInstance
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   // Step 3: Optionally prevent direct instantiation
@@ -61,11 +61,11 @@ function createSingleton(Class) {
   return {
     getInstance: (...args) => {
       // TODO: Implement
-      throw new Error('Not implemented');
+      throw new Error("Not implemented");
     },
     resetInstance: () => {
       // TODO: Implement
-    }
+    },
   };
 }
 
@@ -91,7 +91,7 @@ class DatabaseConnection {
 
   query(sql) {
     if (!this.connected) {
-      throw new Error('Not connected');
+      throw new Error("Not connected");
     }
     return `Executing: ${sql}`;
   }
@@ -129,5 +129,5 @@ module.exports = {
   Singleton,
   createSingleton,
   DatabaseConnection,
-  AppConfig
+  AppConfig,
 };

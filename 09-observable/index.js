@@ -35,7 +35,7 @@ class Observable {
 
     // Step 5: Return subscription object with unsubscribe method
 
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -113,7 +113,7 @@ class Observable {
     // - Emits each array element
     // - Completes after last element
 
-    return new Observable(subscriber => {
+    return new Observable((subscriber) => {
       // subscriber.next(...) for each
       // subscriber.complete()
     });

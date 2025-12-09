@@ -3,6 +3,7 @@
 ## Difficulty: Medium
 
 ## Learning Objectives
+
 - Understand the Factory creational pattern
 - Decouple object creation from usage
 - Implement registration-based factories
@@ -11,16 +12,17 @@
 ## The Problem
 
 Instead of creating objects directly with `new`, a factory centralizes creation logic. This allows for:
+
 - Easy switching between implementations
 - Dynamic type selection at runtime
 - Simplified object creation with complex setup
 
 ```javascript
 // Without factory: tight coupling
-const logger = new FileLogger('/var/log/app.log');
+const logger = new FileLogger("/var/log/app.log");
 
 // With factory: loose coupling
-const logger = LoggerFactory.create('file', { path: '/var/log/app.log' });
+const logger = LoggerFactory.create("file", { path: "/var/log/app.log" });
 ```
 
 ## Requirements
@@ -30,8 +32,8 @@ const logger = LoggerFactory.create('file', { path: '/var/log/app.log' });
 Create a `ShapeFactory` that creates different shapes:
 
 ```javascript
-const circle = ShapeFactory.create('circle', { radius: 5 });
-const rectangle = ShapeFactory.create('rectangle', { width: 10, height: 5 });
+const circle = ShapeFactory.create("circle", { radius: 5 });
+const rectangle = ShapeFactory.create("rectangle", { width: 10, height: 5 });
 ```
 
 ### Part 2: Registration Factory
@@ -40,11 +42,11 @@ Create a `Factory` class where types can be registered dynamically:
 
 ```javascript
 const factory = new Factory();
-factory.register('user', User);
-factory.register('admin', AdminUser);
+factory.register("user", User);
+factory.register("admin", AdminUser);
 
-const user = factory.create('user', { name: 'Alice' });
-const admin = factory.create('admin', { name: 'Bob' });
+const user = factory.create("user", { name: "Alice" });
+const admin = factory.create("admin", { name: "Bob" });
 ```
 
 ### Part 3: Factory with Validation (Bonus)
@@ -52,9 +54,9 @@ const admin = factory.create('admin', { name: 'Bob' });
 Add optional validation for constructor arguments:
 
 ```javascript
-factory.register('user', User, {
-  required: ['name', 'email'],
-  validate: (args) => args.age >= 18
+factory.register("user", User, {
+  required: ["name", "email"],
+  validate: (args) => args.age >= 18,
 });
 ```
 
@@ -66,7 +68,9 @@ class Circle {
   constructor({ radius }) {
     this.radius = radius;
   }
-  area() { return Math.PI * this.radius ** 2; }
+  area() {
+    return Math.PI * this.radius ** 2;
+  }
 }
 
 class Rectangle {
@@ -74,33 +78,38 @@ class Rectangle {
     this.width = width;
     this.height = height;
   }
-  area() { return this.width * this.height; }
+  area() {
+    return this.width * this.height;
+  }
 }
 
 const ShapeFactory = {
   create(type, options) {
-    switch(type) {
-      case 'circle': return new Circle(options);
-      case 'rectangle': return new Rectangle(options);
-      default: throw new Error(`Unknown shape: ${type}`);
+    switch (type) {
+      case "circle":
+        return new Circle(options);
+      case "rectangle":
+        return new Rectangle(options);
+      default:
+        throw new Error(`Unknown shape: ${type}`);
     }
-  }
+  },
 };
 
 // Registration Factory
 const factory = new Factory();
 
-factory.register('circle', Circle);
-factory.register('rectangle', Rectangle);
+factory.register("circle", Circle);
+factory.register("rectangle", Rectangle);
 
-const shape = factory.create('circle', { radius: 10 });
+const shape = factory.create("circle", { radius: 10 });
 console.log(shape.area()); // ~314.16
 
 // Get registered types
 factory.getTypes(); // ['circle', 'rectangle']
 
 // Check if type exists
-factory.has('circle'); // true
+factory.has("circle"); // true
 ```
 
 ## Hints
@@ -113,12 +122,14 @@ factory.has('circle'); // true
 ## When to Use Factory
 
 **Good use cases:**
+
 - Creating objects based on configuration
 - Plugin systems
 - Dependency injection containers
 - Testing (easy to mock)
 
 **Consider alternatives when:**
+
 - Only one implementation exists
 - Creation logic is simple
 

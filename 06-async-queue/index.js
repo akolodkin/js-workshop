@@ -12,11 +12,9 @@ class AsyncQueue {
    */
   constructor(options = {}) {
     // TODO: Initialize the queue
-
     // Step 1: Extract options with defaults
     // this.concurrency = options.concurrency || 1;
     // this.autoStart = options.autoStart !== false;
-
     // Step 2: Initialize internal state
     // this.queue = [];        // Pending tasks
     // this.running = 0;       // Currently running count
@@ -87,7 +85,7 @@ class AsyncQueue {
    */
   get size() {
     // TODO: Return queue length
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -96,7 +94,7 @@ class AsyncQueue {
    */
   get pending() {
     // TODO: Return running count
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -105,7 +103,7 @@ class AsyncQueue {
    */
   get isPaused() {
     // TODO: Return paused state
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -114,16 +112,12 @@ class AsyncQueue {
    */
   _process() {
     // TODO: Implement _process
-
     // Step 1: Check if we can run more tasks
     // - Not paused
     // - Running count < concurrency
     // - Queue has items
-
     // Step 2: Take task from queue (respect priority)
-
     // Step 3: Increment running count
-
     // Step 4: Execute task and handle result
     // - On success: resolve the task's promise
     // - On error: reject the task's promise

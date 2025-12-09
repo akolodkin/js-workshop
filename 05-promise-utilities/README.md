@@ -3,6 +3,7 @@
 ## Difficulty: Hard
 
 ## Learning Objectives
+
 - Deep understanding of Promise internals
 - Implement Promise static methods from scratch
 - Handle various Promise states and edge cases
@@ -20,11 +21,12 @@ Wait for all promises to resolve, or reject if any rejects.
 
 ```javascript
 promiseAll([promise1, promise2, promise3])
-  .then(results => console.log(results)) // [result1, result2, result3]
-  .catch(error => console.log(error));   // First rejection
+  .then((results) => console.log(results)) // [result1, result2, result3]
+  .catch((error) => console.log(error)); // First rejection
 ```
 
 Requirements:
+
 - Returns a promise that resolves with an array of results
 - Results are in the same order as input (not completion order)
 - Rejects immediately if any promise rejects
@@ -36,11 +38,11 @@ Requirements:
 Return the first promise to settle (resolve or reject).
 
 ```javascript
-promiseRace([slow, fast, medium])
-  .then(result => console.log(result));  // Result of 'fast'
+promiseRace([slow, fast, medium]).then((result) => console.log(result)); // Result of 'fast'
 ```
 
 Requirements:
+
 - Returns result/error of first settled promise
 - Handles empty array (never settles - pending forever)
 - Handles non-promise values
@@ -50,8 +52,9 @@ Requirements:
 Wait for all promises to settle, never rejects.
 
 ```javascript
-promiseAllSettled([promise1, promise2, promise3])
-  .then(results => console.log(results));
+promiseAllSettled([promise1, promise2, promise3]).then((results) =>
+  console.log(results),
+);
 // [
 //   { status: 'fulfilled', value: result1 },
 //   { status: 'rejected', reason: error2 },
@@ -60,6 +63,7 @@ promiseAllSettled([promise1, promise2, promise3])
 ```
 
 Requirements:
+
 - Always resolves (never rejects)
 - Returns array of status objects
 - Each object has `status` ('fulfilled' or 'rejected')
@@ -71,14 +75,15 @@ Requirements:
 Return first fulfilled promise, or aggregate error if all reject.
 
 ```javascript
-promiseAny([rejects1, resolves, rejects2])
-  .then(result => console.log(result)); // Result of 'resolves'
+promiseAny([rejects1, resolves, rejects2]).then((result) =>
+  console.log(result),
+); // Result of 'resolves'
 
-promiseAny([rejects1, rejects2])
-  .catch(error => console.log(error)); // AggregateError
+promiseAny([rejects1, rejects2]).catch((error) => console.log(error)); // AggregateError
 ```
 
 Requirements:
+
 - Resolves with first fulfilled value
 - Ignores rejections until all reject
 - If all reject, reject with `AggregateError`
@@ -88,33 +93,26 @@ Requirements:
 
 ```javascript
 // promiseAll
-const promises = [
-  Promise.resolve(1),
-  Promise.resolve(2),
-  Promise.resolve(3)
-];
+const promises = [Promise.resolve(1), Promise.resolve(2), Promise.resolve(3)];
 promiseAll(promises).then(console.log); // [1, 2, 3]
 
 // promiseRace
 const race = [
-  new Promise(r => setTimeout(() => r('slow'), 100)),
-  new Promise(r => setTimeout(() => r('fast'), 10))
+  new Promise((r) => setTimeout(() => r("slow"), 100)),
+  new Promise((r) => setTimeout(() => r("fast"), 10)),
 ];
 promiseRace(race).then(console.log); // 'fast'
 
 // promiseAllSettled
-const mixed = [
-  Promise.resolve('success'),
-  Promise.reject('error')
-];
+const mixed = [Promise.resolve("success"), Promise.reject("error")];
 promiseAllSettled(mixed).then(console.log);
 // [{ status: 'fulfilled', value: 'success' }, { status: 'rejected', reason: 'error' }]
 
 // promiseAny
 const any = [
-  Promise.reject('fail1'),
-  Promise.resolve('success'),
-  Promise.reject('fail2')
+  Promise.reject("fail1"),
+  Promise.resolve("success"),
+  Promise.reject("fail2"),
 ];
 promiseAny(any).then(console.log); // 'success'
 ```

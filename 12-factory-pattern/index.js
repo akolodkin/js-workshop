@@ -6,7 +6,7 @@
 class Circle {
   constructor({ radius }) {
     this.radius = radius;
-    this.type = 'circle';
+    this.type = "circle";
   }
 
   area() {
@@ -22,7 +22,7 @@ class Rectangle {
   constructor({ width, height }) {
     this.width = width;
     this.height = height;
-    this.type = 'rectangle';
+    this.type = "rectangle";
   }
 
   area() {
@@ -35,11 +35,15 @@ class Rectangle {
 }
 
 class Triangle {
-  constructor({ base, height, sides = [base, height, Math.sqrt(base**2 + height**2)] }) {
+  constructor({
+    base,
+    height,
+    sides = [base, height, Math.sqrt(base ** 2 + height ** 2)],
+  }) {
     this.base = base;
     this.height = height;
     this.sides = sides;
-    this.type = 'triangle';
+    this.type = "triangle";
   }
 
   area() {
@@ -72,7 +76,7 @@ const ShapeFactory = {
     // Throw error for unknown types
 
     return null; // Replace with implementation
-  }
+  },
 };
 
 /**
@@ -96,7 +100,6 @@ class Factory {
    */
   register(type, Class, options = {}) {
     // TODO: Implement register
-
     // Store the class and options in the registry
   }
 
@@ -108,7 +111,7 @@ class Factory {
   unregister(type) {
     // TODO: Implement unregister
 
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -141,7 +144,7 @@ class Factory {
   has(type) {
     // TODO: Implement has
 
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -151,7 +154,7 @@ class Factory {
   getTypes() {
     // TODO: Implement getTypes
 
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -159,7 +162,7 @@ class Factory {
    */
   clear() {
     // TODO: Implement clear
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 }
 
@@ -169,7 +172,7 @@ class Factory {
  * Practical example of factory for different logger types.
  */
 class ConsoleLogger {
-  constructor({ prefix = '' } = {}) {
+  constructor({ prefix = "" } = {}) {
     this.prefix = prefix;
   }
 
@@ -183,7 +186,7 @@ class ConsoleLogger {
 }
 
 class FileLogger {
-  constructor({ path, prefix = '' } = {}) {
+  constructor({ path, prefix = "" } = {}) {
     this.path = path;
     this.prefix = prefix;
     this.logs = []; // Simulated file
@@ -209,11 +212,11 @@ class JsonLogger {
   }
 
   log(message) {
-    this.entries.push(this._createEntry('info', message));
+    this.entries.push(this._createEntry("info", message));
   }
 
   error(message) {
-    this.entries.push(this._createEntry('error', message));
+    this.entries.push(this._createEntry("error", message));
   }
 
   _createEntry(level, message) {
@@ -237,5 +240,5 @@ module.exports = {
   Triangle,
   ConsoleLogger,
   FileLogger,
-  JsonLogger
+  JsonLogger,
 };

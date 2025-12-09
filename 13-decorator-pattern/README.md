@@ -3,6 +3,7 @@
 ## Difficulty: Medium
 
 ## Learning Objectives
+
 - Understand the Decorator structural pattern
 - Add behavior to objects dynamically
 - Work with function composition
@@ -23,7 +24,7 @@ class Logger {
 // With decorator: separation of concerns
 const logger = new Logger();
 const timedLogger = withTimestamp(logger);
-timedLogger.log('Hello'); // [2024-01-01T12:00:00Z] Hello
+timedLogger.log("Hello"); // [2024-01-01T12:00:00Z] Hello
 ```
 
 ## Requirements
@@ -33,6 +34,7 @@ timedLogger.log('Hello'); // [2024-01-01T12:00:00Z] Hello
 Create decorator functions that wrap other functions:
 
 #### `withLogging(fn)`
+
 Logs function calls with arguments and return value.
 
 ```javascript
@@ -45,16 +47,20 @@ loggedAdd(2, 3);
 ```
 
 #### `withTiming(fn)`
+
 Measures and logs execution time.
 
 ```javascript
-const slow = () => { /* slow operation */ };
+const slow = () => {
+  /* slow operation */
+};
 const timedSlow = withTiming(slow);
 timedSlow();
 // Log: "slow took 150ms"
 ```
 
 #### `withRetry(fn, maxRetries)`
+
 Retries on failure.
 
 ```javascript
@@ -66,6 +72,7 @@ const unreliable = withRetry(fetchData, 3);
 Create functions that decorate objects:
 
 #### `withCache(obj, methodName)`
+
 Caches method results.
 
 ```javascript
@@ -80,11 +87,7 @@ cachedApi.fetchUser(1); // Returns cached
 Allow decorators to be composed:
 
 ```javascript
-const fn = compose(
-  withLogging,
-  withTiming,
-  withRetry(3)
-)(originalFn);
+const fn = compose(withLogging, withTiming, withRetry(3))(originalFn);
 ```
 
 ## Examples
@@ -92,7 +95,7 @@ const fn = compose(
 ```javascript
 // Function decorator
 function withLogging(fn) {
-  return function(...args) {
+  return function (...args) {
     console.log(`Calling ${fn.name} with:`, args);
     const result = fn.apply(this, args);
     console.log(`${fn.name} returned:`, result);
@@ -103,9 +106,9 @@ function withLogging(fn) {
 // Object method decorator
 function withValidation(obj, methodName, validator) {
   const original = obj[methodName];
-  obj[methodName] = function(...args) {
+  obj[methodName] = function (...args) {
     if (!validator(...args)) {
-      throw new Error('Validation failed');
+      throw new Error("Validation failed");
     }
     return original.apply(this, args);
   };
@@ -113,10 +116,7 @@ function withValidation(obj, methodName, validator) {
 }
 
 // Composing decorators
-const enhance = compose(
-  withLogging,
-  withTiming
-);
+const enhance = compose(withLogging, withTiming);
 const enhancedFn = enhance(myFunction);
 ```
 

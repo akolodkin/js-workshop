@@ -3,6 +3,7 @@
 ## Difficulty: Medium
 
 ## Learning Objectives
+
 - Understand the Builder creational pattern
 - Implement fluent interfaces (method chaining)
 - Construct complex objects step by step
@@ -14,15 +15,24 @@ When objects have many optional parameters, constructors become unwieldy:
 
 ```javascript
 // Without builder: confusing constructor
-const user = new User('Alice', 30, 'alice@example.com', true, false, 'admin', null, '2024-01-01');
+const user = new User(
+  "Alice",
+  30,
+  "alice@example.com",
+  true,
+  false,
+  "admin",
+  null,
+  "2024-01-01",
+);
 
 // With builder: clear and readable
 const user = new UserBuilder()
-  .setName('Alice')
+  .setName("Alice")
   .setAge(30)
-  .setEmail('alice@example.com')
+  .setEmail("alice@example.com")
   .setActive(true)
-  .setRole('admin')
+  .setRole("admin")
   .build();
 ```
 
@@ -31,6 +41,7 @@ const user = new UserBuilder()
 ### Builder Class
 
 Create a builder with:
+
 - Setter methods for each property
 - Method chaining (return `this`)
 - A `build()` method that creates the final object
@@ -40,11 +51,11 @@ Create a builder with:
 
 ```javascript
 const query = new QueryBuilder()
-  .select('name', 'email')
-  .from('users')
-  .where('age', '>', 18)
-  .where('active', '=', true)
-  .orderBy('name', 'ASC')
+  .select("name", "email")
+  .from("users")
+  .where("age", ">", 18)
+  .where("active", "=", true)
+  .orderBy("name", "ASC")
   .limit(10)
   .build();
 
@@ -55,11 +66,11 @@ const query = new QueryBuilder()
 
 ```javascript
 const html = new HTMLBuilder()
-  .tag('div')
-  .id('container')
-  .class('wrapper', 'main')
-  .attr('data-page', 'home')
-  .content('Hello World')
+  .tag("div")
+  .id("container")
+  .class("wrapper", "main")
+  .attr("data-page", "home")
+  .content("Hello World")
   .build();
 
 // Returns: <div id="container" class="wrapper main" data-page="home">Hello World</div>
@@ -69,11 +80,11 @@ const html = new HTMLBuilder()
 
 ```javascript
 const config = new ConfigBuilder()
-  .setEnvironment('production')
-  .setDatabase({ host: 'localhost', port: 5432 })
-  .enableFeature('caching')
-  .enableFeature('logging')
-  .setLogLevel('error')
+  .setEnvironment("production")
+  .setDatabase({ host: "localhost", port: 5432 })
+  .enableFeature("caching")
+  .enableFeature("logging")
+  .setLogLevel("error")
   .build();
 ```
 
@@ -88,7 +99,7 @@ class UserBuilder {
 
   setName(name) {
     this.user.name = name;
-    return this;  // Method chaining
+    return this; // Method chaining
   }
 
   setEmail(email) {
@@ -103,14 +114,14 @@ class UserBuilder {
 
   build() {
     // Validation
-    if (!this.user.name) throw new Error('Name is required');
+    if (!this.user.name) throw new Error("Name is required");
     return { ...this.user };
   }
 }
 
 const user = new UserBuilder()
-  .setName('Alice')
-  .setEmail('alice@example.com')
+  .setName("Alice")
+  .setEmail("alice@example.com")
   .setAge(30)
   .build();
 
@@ -118,16 +129,13 @@ const user = new UserBuilder()
 class UserDirector {
   static createAdmin(builder) {
     return builder
-      .setRole('admin')
-      .setPermissions(['read', 'write', 'delete'])
+      .setRole("admin")
+      .setPermissions(["read", "write", "delete"])
       .build();
   }
 
   static createGuest(builder) {
-    return builder
-      .setRole('guest')
-      .setPermissions(['read'])
-      .build();
+    return builder.setRole("guest").setPermissions(["read"]).build();
   }
 }
 ```

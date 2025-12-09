@@ -3,6 +3,7 @@
 ## Difficulty: Easy
 
 ## Learning Objectives
+
 - Understand the Singleton creational pattern
 - Implement lazy initialization
 - Work with closures for private state
@@ -34,7 +35,9 @@ Create a `createSingleton(Class)` function that converts any class into a single
 
 ```javascript
 class Logger {
-  log(msg) { console.log(msg); }
+  log(msg) {
+    console.log(msg);
+  }
 }
 
 const SingletonLogger = createSingleton(Logger);
@@ -65,7 +68,9 @@ class Database {
     return Database.instance;
   }
 
-  query(sql) { /* ... */ }
+  query(sql) {
+    /* ... */
+  }
 }
 
 const db1 = Database.getInstance();
@@ -84,7 +89,7 @@ class Config {
 }
 
 const SingletonConfig = createSingleton(Config);
-const config = SingletonConfig.getInstance('production');
+const config = SingletonConfig.getInstance("production");
 ```
 
 ## Hints
@@ -97,12 +102,14 @@ const config = SingletonConfig.getInstance('production');
 ## When to Use Singletons
 
 **Good use cases:**
+
 - Configuration objects
 - Logging services
 - Connection pools
 - Caches
 
 **Avoid when:**
+
 - It introduces global state (hard to test)
 - Classes need different configurations
 - Dependency injection is a better fit

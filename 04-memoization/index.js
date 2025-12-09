@@ -40,12 +40,16 @@ function memoize(fn, options = {}) {
   // Step 6: Return memoized function
 
   // Return placeholder that doesn't work
-  const memoized = function() { return undefined; };
+  const memoized = function () {
+    return undefined;
+  };
   memoized.cache = {
     clear: () => {},
     delete: () => false,
     has: () => false,
-    get size() { return -1; }
+    get size() {
+      return -1;
+    },
   };
   return memoized;
 }

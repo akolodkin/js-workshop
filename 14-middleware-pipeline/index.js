@@ -46,7 +46,7 @@ class Pipeline {
     // Step 3: Return promise for async support
 
     // Broken: rejects instead of resolving
-    return Promise.reject(new Error('Not implemented'));
+    return Promise.reject(new Error("Not implemented"));
   }
 
   /**
@@ -80,7 +80,7 @@ function compose(middleware) {
   // - Creates dispatch(index) that calls middleware[index]
   // - Returns dispatch(0)
 
-  return function(context) {
+  return function (context) {
     function dispatch(index) {
       // TODO: Implement dispatch
 
@@ -91,7 +91,7 @@ function compose(middleware) {
       // Step 5: Return as promise
 
       // Broken: rejects instead of resolving
-      return Promise.reject(new Error('Not implemented'));
+      return Promise.reject(new Error("Not implemented"));
     }
 
     return dispatch(0);
@@ -113,7 +113,9 @@ function when(condition, middleware) {
   // - If true, runs middleware
   // - If false, just calls next()
 
-  return (ctx, next) => { throw new Error('Not implemented'); };
+  return (ctx, next) => {
+    throw new Error("Not implemented");
+  };
 }
 
 /**
@@ -130,7 +132,7 @@ function errorMiddleware(errorHandler) {
   // - Calls errorHandler if error thrown
 
   return async (ctx, next) => {
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   };
 }
 
@@ -138,5 +140,5 @@ module.exports = {
   Pipeline,
   compose,
   when,
-  errorMiddleware
+  errorMiddleware,
 };

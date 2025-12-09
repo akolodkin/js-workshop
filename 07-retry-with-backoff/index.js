@@ -46,7 +46,7 @@ async function retry(fn, options = {}) {
 
   // Step 6: If all retries exhausted, throw last error
 
-  throw new Error('Not implemented'); // Replace with your implementation
+  throw new Error("Not implemented"); // Replace with your implementation
 }
 
 /**
@@ -64,7 +64,7 @@ function calculateDelay(strategy, attempt, initialDelay) {
   // Linear: delay = initialDelay * attempt
   // Exponential: delay = initialDelay * 2^(attempt-1)
 
-  throw new Error('Not implemented');
+  throw new Error("Not implemented");
 }
 
 /**
@@ -77,7 +77,7 @@ function applyJitter(delay) {
   // TODO: Add 0-25% random jitter
   // return delay * (1 + Math.random() * 0.25);
 
-  throw new Error('Not implemented');
+  throw new Error("Not implemented");
 }
 
 /**
@@ -87,7 +87,7 @@ function applyJitter(delay) {
  * @returns {Promise} Resolves after delay
  */
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 module.exports = { retry, calculateDelay, applyJitter, sleep };
