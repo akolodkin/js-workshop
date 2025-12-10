@@ -14,6 +14,8 @@ function deepClone(value, visited = new WeakMap()) {
   // Step 1: Handle primitives (return as-is)
   // Primitives: null, undefined, number, string, boolean, symbol, bigint
 
+  return value;
+
   // Step 2: Check for circular references using the visited WeakMap
   // If we've seen this object before, return the cached clone
 
